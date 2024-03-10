@@ -8,7 +8,17 @@ const theme = createTheme({
     secondary: {
       main: '#dc004e',
     },
+    background: {
+        default: '#616161',
+    },
+    text: {
+        primary: '#f5f5f5',
+    }
+
   },
+  typography: {
+    fontFamily: '"Bookman", "URW Bookman L", "serif"'
+  }
   // Add more theme customization here
 });
 
