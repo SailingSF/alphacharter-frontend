@@ -5,7 +5,7 @@ import theme from './theme'; // Import your theme
 import CssBaseline from '@mui/material/CssBaseline';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
-import AppPage from './components/AppPage';
+import ChatPage from './components/ChatPage';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/app" element={<AppPage />} />
+          <Route path="/chat" element={<ChatPage />} />
         </Routes>
     </Router>
     </ThemeProvider>
