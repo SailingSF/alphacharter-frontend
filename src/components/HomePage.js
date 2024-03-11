@@ -11,7 +11,7 @@ function HomePage() {
         Welcome to Alpha Charter
       </Typography>
       <Typography variant="h5" component="p" gutterBottom>
-        Your financial chart assistant.
+        Your on demand junior quant researcher.
       </Typography>
       <Button variant="contained" color="primary" href="/login">
         Log In
