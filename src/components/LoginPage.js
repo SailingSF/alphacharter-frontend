@@ -10,10 +10,10 @@ function LoginPage() {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://your-django-api-url/login', {
+      const response = await axios.post('https://financeassistant-01-7c9325856268.herokuapp.com/api/login/', {
         username,
         password
-      });
+      }, { withCredentials: true });
       console.log(response.data);
       // Handle successful login (e.g., redirect to dashboard)
     } catch (err) {
