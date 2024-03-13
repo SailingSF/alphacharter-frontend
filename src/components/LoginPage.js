@@ -10,16 +10,22 @@ function LoginPage() {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://financeassistant-01-7c9325856268.herokuapp.com/api/login/', {
+      const response = await axios.post('https://financeassistant-01-7c9325856268.herokuapp.com/api/token/', {
         username,
         password
-      }, { withCredentials: true });
+      });
       console.log(response.data);
+      localStorage.setItem('accessToken', response.data.access);
       // Handle successful login (e.g., redirect to dashboard)
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    // Optionally remove the refresh token as well
+};
 
   return (
     <Container maxWidth="sm">
@@ -49,6 +55,7 @@ function LoginPage() {
         </Button>
         {error && <Typography color="error">{error}</Typography>}
       </form>
+      <Button onClick={handleLogout} variant='contained' color='secondary'>Logout</Button>
     </Container>
   );
 }
