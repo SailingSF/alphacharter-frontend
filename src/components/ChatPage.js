@@ -63,7 +63,7 @@ function Chat() {
       const response = await axiosInstance.post('api/submit_prompt/', payload);
       const { job_id, thread_id } = response.data;
       setThreadId(thread_id);
-      setMessages([...messages, { text: prompt, type: 'user' }]);
+      setMessages([...messages, { text: prompt, owner: 'user' }]);
       setPrompt('');
       checkJobStatus(job_id);
     } catch (error) {
@@ -80,7 +80,7 @@ function Chat() {
         const resultMessages = response.data.result.map((item) => ({
             text: item.text || '',
             imageUrl: item.image_url || '',
-            type: 'assistant',
+            owner: 'assistant',
           }));
           setMessages((prevMessages) => [...prevMessages, ...resultMessages]);
       } else {
@@ -107,7 +107,7 @@ function Chat() {
             {messages.map((message, index) => (
             <MessageItem key={index} owner={message.owner} >
                 <Typography variant='body1'>{message.text}</Typography>
-                {message.imageUrl && <img src={message.imageUrl} alt="Response" style={{ maxWidth: '100%', marginTop: '10px' }}/>}
+                {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '70%', marginTop: '15px' }}/>}
             </MessageItem>
             ))}
         </MessageList>
