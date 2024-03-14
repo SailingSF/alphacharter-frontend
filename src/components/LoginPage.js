@@ -55,7 +55,7 @@ function LoginPage() {
         </Button>
         {error && <Typography color="error">{error}</Typography>}
       </form>
-      <Button onClick={handleLogout} variant='contained' color='secondary'>Logout</Button>
+      <Button onClick={handleLogout} variant='contained' color='secondary' fullWidth sx={{mt: 1}}>Log Out</Button>
     </Container>
   );
 }
