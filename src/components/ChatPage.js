@@ -124,15 +124,6 @@ function Chat() {
             </InputArea>
         </form>
       </ChatContainer>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Enter your prompt"
-          fullWidth
-        />
-        <Button type="submit" variant="contained" color="primary">Submit</Button>
-      </form>
       <Button onClick={handleNewConversation} variant='contained' color='secondary'>Start New Conversation</Button>
     </Container>
   );
