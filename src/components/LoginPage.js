@@ -6,6 +6,7 @@ function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -16,14 +17,19 @@ function LoginPage() {
       });
       console.log(response.data);
       localStorage.setItem('accessToken', response.data.access);
+      setSuccessMessage('Login successful!'); // Add this line
+      setError(''); // Clear any previous errors
       // Handle successful login (e.g., redirect to dashboard)
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
+      setSuccessMessage(''); // Clear any previous success message
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    console.log('Access key removed');
+
     // Optionally remove the refresh token as well
 };
 
@@ -54,6 +60,7 @@ function LoginPage() {
           Log In
         </Button>
         {error && <Typography color="error">{error}</Typography>}
+        {successMessage && <Typography color="primary">{successMessage}</Typography>}
       </form>
       <Button onClick={handleLogout} variant='contained' color='secondary' fullWidth sx={{mt: 1}}>Log Out</Button>
     </Container>
