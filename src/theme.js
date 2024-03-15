@@ -3,8 +3,8 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
-      mainVariant: '#64B5F6' //blue 300
+      main: '#F4511E', //deep orange 600
+      mainVariant: '#D84315', //deep orange 800
     },
     secondary: {
       main: '#dc004e',
