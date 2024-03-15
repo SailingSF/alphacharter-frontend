@@ -16,17 +16,20 @@ const ChatContainer = styled(Paper)(({ theme }) => ({
 
 const MessageList = styled(Box)(({ theme }) => ({
   overflowY: 'scroll',
+  display: 'flex',
+  flexDirection: 'column',
   flexGrow: 1,
   padding: theme.spacing(1),
 }));
 
 const MessageItem = styled(Box)(({ theme, owner }) => ({
   alignSelf: owner === 'assistant' ? 'flex-start' : 'flex-end',
+  maxWidth: '70%',
   padding: '10px 20px',
   borderRadius: '20px',
   margin: '5px',
-  backgroundColor: owner === 'assistant' ? theme.palette.grey[200] : theme.palette.primary.main,
-  color: owner === 'assistant' ? theme.palette.text.primary : theme.palette.primary.contrastText,
+  backgroundColor: owner === 'assistant' ? theme.palette.primary.mainVariant : theme.palette.primary.main,
+  color: owner === 'assistant' ? theme.palette.text.primary : theme.palette.primary.primary,
 }));
 
 const InputArea = styled('div')(({ theme }) => ({
@@ -107,7 +110,7 @@ function Chat() {
             {messages.map((message, index) => (
             <MessageItem key={index} owner={message.owner} >
                 <Typography variant='body1'>{message.text}</Typography>
-                {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '70%', marginTop: '15px' }}/>}
+                {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
             </MessageItem>
             ))}
         </MessageList>
