@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, TextField, Button, Box, Paper, Typography } from '@mui/material';
 import axios from 'axios';
 import { styled } from '@mui/system';
+import { marked } from 'marked';
 
 // Styled components
 const ChatContainer = styled(Paper)(({ theme }) => ({
@@ -30,6 +31,24 @@ const MessageItem = styled(Box)(({ theme, owner }) => ({
   margin: '5px',
   backgroundColor: owner === 'assistant' ? theme.palette.primary.mainVariant : theme.palette.primary.main,
   color: owner === 'assistant' ? theme.palette.text.primary : theme.palette.primary.primary,
+
+  '& img': {  // Add these rules for images
+    maxWidth: '100%',
+    height: 'auto',
+    display: 'block',  // Makes images align center
+    margin: '0 auto',  // Center images
+  },
+
+  '& ul, & ol': {
+    listStyleType: 'none', // Removes bullet points or numbers
+    padding: 0, // Removes indentation
+  },
+
+  '& ul > li > img, & ol > li > img': {
+    listStyleType: 'none',
+    padding: 0,
+    margin: 0
+  }
 }));
 
 const InputArea = styled('div')(({ theme }) => ({
@@ -80,12 +99,25 @@ function Chat() {
     try {
       const response = await axios.get(statusUrl);
       if (response.data.status === 'complete') {
-        const resultMessages = response.data.result.map((item) => ({
-            text: item.text || '',
-            imageUrl: item.image_url || '',
+        const resultMessages = response.data.result.map((item) => {
+          const renderer = new marked.Renderer();
+          const originalImageRenderer = renderer.image;
+
+          renderer.image = (href, title, text) => {
+            // You can customize how images are rendered here, for example, to set a class or style
+            return originalImageRenderer.call(renderer, href, title, text);
+          };
+
+          // Convert markdown to HTML
+          const html = marked(item.text || '', { renderer });
+
+          return {
+            html,
+            imageUrl: '', // If needed, you can extract image URLs here
             owner: 'assistant',
-          }));
-          setMessages((prevMessages) => [...prevMessages, ...resultMessages]);
+          };
+        });
+        setMessages((prevMessages) => [...prevMessages, ...resultMessages]);
       } else {
         // Poll the API again after a delay if the job is not complete
         setTimeout(() => checkJobStatus(jobId), 2000);
@@ -109,7 +141,7 @@ function Chat() {
         <MessageList>
             {messages.map((message, index) => (
             <MessageItem key={index} owner={message.owner} >
-                <Typography variant='body1'>{message.text}</Typography>
+                <Typography variant='body1' dangerouslySetInnerHTML={{ __html: message.html || message.text}} />
                 {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
             </MessageItem>
             ))}
