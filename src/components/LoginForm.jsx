@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import axios from 'axios';
 
@@ -7,6 +8,8 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -20,6 +23,7 @@ function LoginPage() {
       setSuccessMessage('Login successful!'); // Add this line
       setError(''); // Clear any previous errors
       // Handle successful login (e.g., redirect to dashboard)
+      navigate('/chat')
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
       setSuccessMessage(''); // Clear any previous success message
