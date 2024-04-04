@@ -40,14 +40,17 @@ function LoginPage() {
       </Typography>
       <form onSubmit={handleLogin}>
         <TextField
+          name="username"
           label="Username"
           variant="outlined"
           fullWidth
+          autoFocus
           margin="normal"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
+          name="password"
           label="Password"
           type="password"
           variant="outlined"
