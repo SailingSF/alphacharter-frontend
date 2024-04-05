@@ -70,6 +70,10 @@ function LoginPage() {
         {successMessage && <Typography color="primary">{successMessage}</Typography>}
       </form>
       <Button onClick={handleLogout} variant='contained' color='secondary' fullWidth sx={{mt: 1}}>Log Out</Button>
+      <Typography variant='h5' component='h4' gutterBottom>
+       <br></br>Don't have an account?
+      </Typography>
+      <Button variant='contained' color='primary' href='/signup' fullWidth>Sign Up</Button>
     </Container>
   );
 }
