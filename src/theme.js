@@ -13,6 +13,7 @@ const theme = createTheme({
         default: '#616161',
         surface: '#9E9E9E',
         header: '#424242', //gray 800
+        dark: '#161516',
     },
     text: {
         primary: '#f5f5f5', //white
