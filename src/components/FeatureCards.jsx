@@ -8,14 +8,22 @@ function FeatureCards() {
     const features = [
         { title: 'Chat with an AI Assistant', description: 'Chat with the most powerful AI models about how to research and invaluate stocks.' },
         { title: 'Create Data Visualizations', description: 'Your AI assistant can generate data charts to help visualize stock comparisons.' },
-        { title: 'Feature 3', description: 'Description of Feature 3' }
+        { title: 'Feature 3', description: 'Description of Feature 3' },
     ];
 
     return (
-        <Grid container spacing={4} style={{ padding: '20px' }}>
+        <Grid container spacing={2} style={{ padding: '20px'}}>
         {features.map((feature, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card style={{ backgroundColor: theme.palette.background.surface }}>
+            <Card style={{ 
+                backgroundColor: theme.palette.background.surface,
+                width: '100%',
+                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '100%'
+            }} elevation={3}>
                 <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
                     {feature.title}
