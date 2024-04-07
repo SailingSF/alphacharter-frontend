@@ -23,7 +23,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: '"Bookman", "URW Bookman L", "serif"'
-  }
+  },
   // Add more theme customization here
 });
 
