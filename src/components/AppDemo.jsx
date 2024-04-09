@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Card, CardActionArea, Grid, Typography } from '@mui/material';
+import { Card, CardActionArea, Container, Grid, Typography } from '@mui/material';
 import { MessageItem, MessageList } from './MessageComponents';
 import autocomapny from '../images/autocompanies_2022.png';
 import chipcompanies from '../images/chipcompanies_ps_2022.png';
+import debtequity_industrials from '../images/debtequity_industrials.png';
+import interestcoverage_industrials from '../images/interestcoverage_industrials.png';
 
 const demoChats = {
     automotive: { title: "Auto Company Stock Performance",
@@ -25,7 +27,12 @@ const demoChats = {
         title: 'Industrial Company Debt Valuation',
         messages: [
             { owner: 'user', text: 'Help me value industrial companies like GE who have a lot of debt. I want to see how that affects their valuations.'},
-            { owner: 'assistant', text: "Sure here's..."}
+            { owner: 'assistant', text: "I made two charts I showing the <strong>Debt to Equity Ratio</strong> and the <strong>Interest Coverage Ratio</strong> for four industrial companies GE (GE), Honeywell (HON), 3M (MMM), and Caterpillar (CAT)", imageUrl: debtequity_industrials },
+            { owner: 'assistant', text: "Here's the Interest Coverage Ratio:", imageUrl: interestcoverage_industrials},
+            { owner: 'user', text: "Thank you, can you tell me more about the interest coverage ratio?"},
+            { owner: 'assistant', text: "ICR is calculated as Earnings Before Interest and Taxes (EBIT) divided by Interest Expense. This ratio measures a company's ability to meet its interest obligations from its operating income, which is crucial for understanding how debt might influence a company's financial health."},
+            { owner: 'user', text: "Could you give me a summary of some analysis based on these charts?"},
+            { owner: 'assistant', text: "Certainly, here's an Analysis Summary:<br></br>GE has shown volatility in its Debt to Equity Ratio, although it tends to have a higher ratio compared to its peers, indicating relatively higher debt levels. Its Interest Coverage Ratio has improved significantly in recent years, suggesting better earnings relative to its interest obligations.<br></br>HON maintains lower Debt to Equity Ratios, indicating prudent leverage usage. Its Interest Coverage Ratio has experienced fluctuations but generally indicates a strong ability to cover interest expenses.<br></br>MMM displayed a spike in the Debt to Equity Ratio during mid-2023, which requires a closer look at their financial decisions in that period. The Interest Coverage ratio has varied wildly in the same period, suggesting significant financial changes or events.<br></br>CAT consistently shows lower Debt to Equity Ratios, implying modest leverage. Its Interest Coverage Ratio has been strong, indicating sound financial health in managing debt.<br></br>For detailed analysis, we should explore these metrics in the context of their respective sectors' averages, recent business developments, and broader economic conditions. Would you like to delve deeper into any particular company or explore additional financial metrics?"}
         ]
     }
 };
@@ -36,6 +43,10 @@ function DemoSection() {
     const [activeChat, setActiveChat] = useState(demoChats.automotive);
   
     return (
+        <Container maxWidth='xl'>
+        <Typography variant='h4' align='center' gutterBottom>
+            How to Use The AlphaCharter Assistant
+        </Typography>
       <Grid container spacing={0}>
         <Grid item xs={12} md={4} padding={'20px'}>
           {Object.keys(demoChats).map((key) => (
@@ -49,7 +60,7 @@ function DemoSection() {
           ))}
         </Grid>
         <Grid item xs={12} md={8} style={{ backgroundColor: theme.palette.background.dark}}>
-          <MessageList maxHeight={'600px'}>
+          <MessageList height={'600px'}>
             {activeChat.messages.map((message, index) => (
               <MessageItem key={index} owner={message.owner}>
                 <Typography variant='body1' dangerouslySetInnerHTML={{ __html: message.text }} />
@@ -59,6 +70,7 @@ function DemoSection() {
           </MessageList>
         </Grid>
       </Grid>
+      </Container>
     );
   }
   
