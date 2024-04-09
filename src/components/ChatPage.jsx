@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Paper, Typography } from '@mui/material';
 import { MessageItem, MessageList } from './MessageComponents';
+import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
 import { styled } from '@mui/system';
 import { marked } from 'marked';
@@ -31,6 +32,7 @@ function Chat() {
   const [prompt, setPrompt] = useState('');
   const [threadId, setThreadId] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [authError, setAuthError] = useState('');
 
   const axiosInstance = axios.create({
     baseURL: 'https://financeassistant-01-7c9325856268.herokuapp.com/',
@@ -54,16 +56,21 @@ function Chat() {
       setMessages([...messages, { text: prompt, owner: 'user' }]);
       setPrompt('');
       checkJobStatus(job_id);
+      setAuthError('');
     } catch (error) {
+      if (error.response && error.response.data.code === "token_not_valid") {
+        setAuthError("You are not logged in or your session has expired, please log in.");
+      }
       console.error(error);
     }
   };
 
   const checkJobStatus = async (jobId) => {
-    const statusUrl = `https://financeassistant-01-7c9325856268.herokuapp.com/api/get_job_status/?job_id=${jobId}`;
+    const statusUrl = `/api/get_job_status/?job_id=${jobId}`;
   
     try {
-      const response = await axios.get(statusUrl);
+      const response = await axiosInstance.get(statusUrl);
+      setAuthError('');
       if (response.data.status === 'complete') {
         const resultMessages = response.data.result.map((item) => {
           const renderer = new marked.Renderer();
@@ -89,8 +96,12 @@ function Chat() {
         setTimeout(() => checkJobStatus(jobId), 2000);
       }
     } catch (error) {
+      if (error.response && error.response.data.code === "token_not_valid") {
+        setAuthError("Your session has expired. Please log in again.");
+      } else {
       console.error(error);
     }
+  }
   };
   const handleNewConversation = () => {
     setThreadId(null);
@@ -99,10 +110,11 @@ function Chat() {
   
   // In your UI, you can have a button or link to start a new conversation:
   
-  
+  const theme = useTheme();  
 
   return (
     <Container>
+      {authError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{authError}</Typography>}
       <ChatContainer>
         <MessageList>
             {messages.map((message, index) => (
