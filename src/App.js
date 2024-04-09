@@ -8,6 +8,7 @@ import HomePage from './components/HomePage';
 import LoginForm from './components/LoginForm';
 import ChatPage from './components/ChatPage';
 import SignUpForm from './components/SignUpForm';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/signup" element={<SignUpForm />} />
         </Routes>
+        <Footer />
       </Router>
     </ThemeProvider>
   );
