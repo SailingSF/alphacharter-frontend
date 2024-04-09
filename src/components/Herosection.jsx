@@ -8,7 +8,7 @@ function HeroSection() {
     return (
         <Container maxWidth="xl" style={{ padding: '40px 0', textAlign: 'center' }}>
         <Typography variant="h2" component="h1" style={{ color: theme.palette.text.primary }}gutterBottom>
-            Welcome to Alpha Charter
+            Welcome to AlphaCharter
         </Typography>
         <Typography variant="h5" component="p" gutterBottom>
             Your on-demand junior quant researcher.

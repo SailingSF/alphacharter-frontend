@@ -6,9 +6,9 @@ function FeatureCards() {
     const theme = useTheme();
     
     const features = [
-        { title: 'Chat with an AI Assistant', description: 'Chat with the most powerful AI models about how to research and invaluate stocks.' },
-        { title: 'Create Data Visualizations', description: 'Your AI assistant can generate data charts to help visualize stock comparisons.' },
-        { title: 'Feature 3', description: 'Description of Feature 3' },
+        { title: 'Talk Finance with an AI Assistant', description: 'Chat with the most powerful AI models about how to research and evaluate stocks.' },
+        { title: 'Create Data Visualizations', description: 'Your AI assistant can generate charts to help visualize data for stock analysis.' },
+        { title: 'Utilize a Massive Finance Database', description: 'AlphaCharter is built on a massive database containing prices and earnings data of all US listed stocks.' },
     ];
 
     return (
