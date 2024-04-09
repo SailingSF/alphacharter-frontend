@@ -14,14 +14,14 @@ const theme = createTheme({
         surface: '#9E9E9E',
         header: '#424242', //gray 800
         dark: '#161516',
-        light: '#f0eff1' // gray 100
+        light: '#F5F5F5' // gray 100
     },
     text: {
         primary: '#f5f5f5', //white
         header: '#FFA000', //amber 700
         dark: '#161516',
-        light: '#f0eff1', //grey 100
-    }
+        light: '#F5F5F5', //grey 100
+    },
 
   },
   typography: {
