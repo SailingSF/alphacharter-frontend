@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Card, CardContent } from '@mui/material';
+import { Container, Typography, Card, CardContent, Box } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/autoplay';
 import 'swiper/css/pagination';
@@ -40,11 +40,29 @@ function TestimonialsSection() {
             }}
         >
             {testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index}>
-                <Card sx={{ mb: 4, boxShadow: '20px 20px 30px rgba(0,0,0,0.5)', minHeight: '200px', backgroundColor: theme.palette.background.light, border: `1px solid black`}}>
-                <CardContent>
-                    <Typography variant="h4" color={theme.palette.text.dark}>{testimonial.name}</Typography>
+            <SwiperSlide key={index} >
+                <Card sx={{ 
+                    mb: 4, 
+                    boxShadow: '20px 20px 30px rgba(0,0,0,0.5)', 
+                    minHeight: '250px', 
+                    width: '600px',
+                    mx: 'auto',
+                    backgroundColor: theme.palette.background.light, 
+                    border: `2px solid black`}}>
+                <CardContent sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                }}>
+                    <Typography variant="h4" color={theme.palette.text.dark} sx={{ mb: 2 }}>{testimonial.name}</Typography>
+                    <Box sx={{
+                        flex: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        }}>
                     <Typography variant="h5" color={theme.palette.text.dark}>{testimonial.text}</Typography>
+                    </Box>  
                 </CardContent>
                 </Card>
             </SwiperSlide>
