@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import axios from 'axios';
+import AttentionSection from './AttentionSection';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -37,8 +38,11 @@ function LoginPage() {
     // Optionally remove the refresh token as well
 };
 
+const warningComponent = { title: "Attention:", text: "Create an account first to gain access to AlphaCharter features."}
+
   return (
     <Container maxWidth="sm">
+      <AttentionSection title={warningComponent.title} text={warningComponent.text}></AttentionSection>
       <Typography variant="h4" component="h1" gutterBottom>
         Login
       </Typography>

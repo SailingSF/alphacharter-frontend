@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Alert } from '@mui/material';
+import AttentionSection from './AttentionSection';
 import axios from 'axios';
 
 function RegisterForm() {
@@ -49,8 +50,11 @@ function RegisterForm() {
         }
     };
 
+    const warningComponent = { title: "Attention:", text: "Signing up now does not grant usage access to the AlphaCharter chat and other features at the moment. It does put you first in line for when it becomes publicly available and eligible for free usage, access to beta access, and other features."}
+
     return (
         <Container component="main" maxWidth="xs">
+            <AttentionSection title={warningComponent.title} text={warningComponent.text}></AttentionSection>
             <Typography component="h1" variant="h5">
                 Sign Up
             </Typography>
