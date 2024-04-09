@@ -6,6 +6,17 @@ const MessageList = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     flexGrow: 1,
     padding: theme.spacing(1),
+    '&::-webkit-scrollbar': {
+        width: '8px',
+    },
+    '&::-webkit-scrollbar-track': {
+        backgroundColor: theme.palette.grey[900],
+    },
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'black',
+        boxShadow: 'inset 0 0 0 0.5px white',
+        borderRadius: '8px',
+    }
   }));
 
 const MessageItem = styled(Box)(({ theme, owner }) => ({
