@@ -12,7 +12,7 @@ function HomePage() {
       <HeroSection />
       <FeatureCards />
       <AppDemo />
-      <CallToAction text='Make an account!' href='/login' />
+      <CallToAction text='Make an account' href='/login' />
       <TestimonialsSection />
 
     </div>
