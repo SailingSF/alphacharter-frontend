@@ -41,7 +41,7 @@ function LoginPage() {
 const warningComponent = { title: "Attention:", text: "Create an account first to gain access to AlphaCharter features."}
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ marginBottom: '4rem' }}>
       <AttentionSection title={warningComponent.title} text={warningComponent.text}></AttentionSection>
       <Typography variant="h4" component="h1" gutterBottom>
         Login

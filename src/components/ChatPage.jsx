@@ -115,7 +115,7 @@ function Chat() {
   return (
     <Container>
       {authError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{authError}</Typography>}
-      <ChatContainer>
+      <ChatContainer sx={{ marginBlock: '1rem' }}>
         <MessageList>
             {messages.map((message, index) => (
             <MessageItem key={index} owner={message.owner} >
@@ -137,7 +137,7 @@ function Chat() {
             </InputArea>
         </form>
       </ChatContainer>
-      <Button onClick={handleNewConversation} variant='contained' color='secondary'>Start New Conversation</Button>
+      <Button onClick={handleNewConversation} variant='contained' color='secondary' sx={{ marginBottom: '2rem'}}>Start New Conversation</Button>
     </Container>
   );
 }
