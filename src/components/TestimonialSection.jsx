@@ -11,7 +11,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 // Mock data for testimonials
 const testimonials = [
   { name: "Warren Buffet", text: "With AlphaCharter I'm going to fire everyone at Berkshire and just use this thing." },
-  { name: "Steve Cohen", text: "If I had AlphaCharter I wouldn't have needed to commit blatant of insider trading in order to make my billions, I would've just used this and skipped the part where I forced analysts to commit crimes and go to jail." },
+  { name: "Steve Cohen", text: "If I had AlphaCharter I wouldn't have needed to commit blatant insider trading in order to make my billions, I would've just used this and skipped the part where I forced analysts to commit crimes and go to jail." },
   { name: "Michael Bloomberg", text: "I would charge $5,000 a month for this." },
   // Add more testimonials as needed
 ];
@@ -43,7 +43,7 @@ function TestimonialsSection() {
             <SwiperSlide key={index} >
                 <Card sx={{ 
                     mb: 4, 
-                    boxShadow: '20px 20px 30px rgba(0,0,0,0.5)', 
+                    boxShadow: '10px 20px 5px rgba(0,0,0,0.5)', 
                     minHeight: '250px', 
                     maxWidth: '600px',
                     mx: 'auto',
