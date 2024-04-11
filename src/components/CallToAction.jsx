@@ -18,7 +18,7 @@ function CallToAction({ text, href }) {
         <Box style={{ backgroundColor: theme.palette.background.dark, width: '100%' }}>
             <Box textAlign="center" p={4}>
                 <Box className="svg-container">
-                    <svg width="100%" height="200px" viewBox="0 0 250 100" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="100%" height="200px" viewBox="0 0 250 100">
                         <path
                             d={svgPath}
                             stroke={theme.palette.primary.main}
@@ -30,7 +30,7 @@ function CallToAction({ text, href }) {
                     </svg>
                 </Box>
                 <Typography variant="h4" gutterBottom>
-                    Get your virtual quant now!
+                    Sign up to get your virtual quant
                 </Typography>
                 <Button variant="contained" color="primary" href={href}>
                     {text} 
