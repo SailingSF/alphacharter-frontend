@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Grid, Card, CardContent, Typography } from '@mui/material';
+import { Container, Box, Grid, Card, CardContent, Typography } from '@mui/material';
 
 function FeatureCards() {
     const theme = useTheme();
@@ -12,30 +12,36 @@ function FeatureCards() {
     ];
 
     return (
-        <Grid container spacing={2} style={{ padding: '20px'}}>
-        {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card style={{ 
-                backgroundColor: theme.palette.background.surface,
-                width: '100%',
-                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                height: '100%'
-            }} elevation={3}>
-                <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {feature.title}
-                </Typography>
-                <Typography variant="body2">
-                    {feature.description}
-                </Typography>
-                </CardContent>
-            </Card>
+        <Container maxWidth='xl'>
+            <Typography variant='h4'>Features</Typography>
+            <Box sx={{ marginBottom: '1rem', marginTop: '2rem', outline: `1px solid ${theme.palette.primary.main}` }}>
+
+            <Grid container spacing={2} style={{ padding: '20px'}}>
+            {features.map((feature, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                <Card style={{ 
+                    backgroundColor: theme.palette.background.surface,
+                    width: '100%',
+                    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    height: '100%'
+                }} elevation={3}>
+                    <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)' }}>
+                        {feature.title}
+                    </Typography>
+                    <Typography variant="body2">
+                        {feature.description}
+                    </Typography>
+                    </CardContent>
+                </Card>
+                </Grid>
+            ))}
             </Grid>
-        ))}
-        </Grid>
+            </Box>
+        </Container>
     );
 }
 

@@ -52,7 +52,7 @@ function DemoSection() {
           {Object.keys(demoChats).map((key) => (
             <Card key={key} style={{ padding: '20px', backgroundColor: theme.palette.background.surface, marginBottom: '20px' }} onClick={() => setActiveChat(demoChats[key])}>
               <CardActionArea>
-                <Typography variant="h5">
+                <Typography variant="h5" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)' }}>
                   {demoChats[key].title}
                 </Typography>
               </CardActionArea>
