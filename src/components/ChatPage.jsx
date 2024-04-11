@@ -33,6 +33,7 @@ function Chat() {
   const [threadId, setThreadId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [authError, setAuthError] = useState('');
+  const [usageError, setUsageError] = useState('');
 
   const axiosInstance = axios.create({
     baseURL: 'https://financeassistant-01-7c9325856268.herokuapp.com/',
@@ -57,9 +58,13 @@ function Chat() {
       setPrompt('');
       checkJobStatus(job_id);
       setAuthError('');
+      setUsageError('');
     } catch (error) {
       if (error.response && error.response.data.code === "token_not_valid") {
         setAuthError("You are not logged in or your session has expired, please log in.");
+      }
+      if (error.response) {
+        setUsageError(error.response.data.error)
       }
       console.error(error);
     }
@@ -115,6 +120,7 @@ function Chat() {
   return (
     <Container>
       {authError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{authError}</Typography>}
+      {usageError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{usageError}</Typography>}
       <ChatContainer sx={{ marginBlock: '1rem' }}>
         <MessageList>
             {messages.map((message, index) => (
