@@ -6,6 +6,8 @@ import autocomapny from '../images/autocompanies_2022.png';
 import chipcompanies from '../images/chipcompanies_ps_2022.png';
 import debtequity_industrials from '../images/debtequity_industrials.png';
 import interestcoverage_industrials from '../images/interestcoverage_industrials.png';
+import cruise_debtequity_img from '../images/cruise_debtequity.png';
+import cruise_interestcoverage from '../images/cruise_interestcoverage.png';
 
 const demoChats = {
     automotive: { title: "Auto Company Stock Performance",
@@ -33,6 +35,15 @@ const demoChats = {
             { owner: 'assistant', text: "ICR is calculated as Earnings Before Interest and Taxes (EBIT) divided by Interest Expense. This ratio measures a company's ability to meet its interest obligations from its operating income, which is crucial for understanding how debt might influence a company's financial health."},
             { owner: 'user', text: "Could you give me a summary of some analysis based on these charts?"},
             { owner: 'assistant', text: "Certainly, here's an Analysis Summary:<br></br>GE has shown volatility in its Debt to Equity Ratio, although it tends to have a higher ratio compared to its peers, indicating relatively higher debt levels. Its Interest Coverage Ratio has improved significantly in recent years, suggesting better earnings relative to its interest obligations.<br></br>HON maintains lower Debt to Equity Ratios, indicating prudent leverage usage. Its Interest Coverage Ratio has experienced fluctuations but generally indicates a strong ability to cover interest expenses.<br></br>MMM displayed a spike in the Debt to Equity Ratio during mid-2023, which requires a closer look at their financial decisions in that period. The Interest Coverage ratio has varied wildly in the same period, suggesting significant financial changes or events.<br></br>CAT consistently shows lower Debt to Equity Ratios, implying modest leverage. Its Interest Coverage Ratio has been strong, indicating sound financial health in managing debt.<br></br>For detailed analysis, we should explore these metrics in the context of their respective sectors' averages, recent business developments, and broader economic conditions. Would you like to delve deeper into any particular company or explore additional financial metrics?"}
+        ]
+    },
+    cruise_debtequity: {
+        title: 'Cruise Companies Debt',
+        messages: [
+            { owner: 'user', text: "I've been thinking about companies that had to take on a lot of debt with no revenue during covid, specifically cruise companies like Royal Caribbean and Carnival how can I visualize how much debt these companies have and their ability to pay it back?"},
+            { owner: 'assistant', text: "We have generated two charts that provide insight into the leverages and debt servicing capabilities of Royal Caribbean (RCL) and Carnival (CCL) over recent years, covering the COVID-19 period and beyond.<br></br><h3>Debt to Equity Comparison</h3>", imageUrl: cruise_debtequity_img },
+            { owner: 'assistant', text: "<h3>Interest Coverage Ratio</h3>", imageUrl: cruise_interestcoverage},
+            { owner: 'assistant', text: "The <strong>Interest Coverage Ratios</strong> chart showcases the ability of both companies to pay off their interest expenses from their earnings. The negative values observed during certain periods indicate that earnings were not sufficient to cover interest expenses, primarily resulting from the significant disruptions in operations due to COVID-19. Over time, as the ratios improve and enter positive territory, it indicates a recovery in the companies' abilities to service their debt from operational earnings.<br></br><strong>Key Takeaways:</strong><br></br>Both RCL and CCL have experienced significant increases in their Debt-to-Equity Ratios during the COVID-19 pandemic, reflecting higher levels of debt relative to their equity.<br></br>Interest Coverage Ratios depicted severe pressures on their ability to service debt during the early stages of the pandemic, with noticeable improvements observed as the companies began to recover.<br></br>These charts help visualize the financial challenges faced by RCL and CCL due to COVID-19 and their pathways to financial recovery. However, the elevated Debt-to-Equity Ratios suggest ongoing financial management attention is necessary to ensure long-term sustainability."}
         ]
     }
 };
