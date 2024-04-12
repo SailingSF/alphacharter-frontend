@@ -14,7 +14,14 @@ function FeatureCards() {
     return (
         <Container maxWidth='xl'>
             <Typography variant='h4'>Features</Typography>
-            <Box sx={{ marginBottom: '1rem', marginTop: '1.5rem', outline: `1px solid ${theme.palette.primary.main}` }}>
+            <Box sx={{ 
+                marginBottom: '1rem', 
+                marginTop: '1rem', 
+                outline: `1px solid ${theme.palette.primary.main}`,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+            }}>
 
             <Grid container spacing={2} style={{ padding: '20px'}}>
             {features.map((feature, index) => (
@@ -26,7 +33,7 @@ function FeatureCards() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    height: '100%'
+                    height: '100%',
                 }} elevation={3}>
                     <CardContent>
                     <Typography gutterBottom variant="h5" component="h2" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)' }}>
