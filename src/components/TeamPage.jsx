@@ -11,18 +11,19 @@ function TeamPage() {
     const bios = [
         {
             name: "Max",
-            description: "He maade this",
+            description: "He made this",
             photo: maxheadshot,
         }
     ];
 
     return (
         <Container maxWidth='lg'>
-            <Typography variant='h2' component='h1' align='center' marginTop={2}>Team</Typography>
+            <Typography variant='h2' component='h1' align='center' marginTop={3}>Team</Typography>
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 marginTop: 4,
+                marginBottom: 12,
             }}>
                 <Grid container spacing={2} justifyContent='center' style={{ padding: '20px'}}>
                 {bios.map(member => (
