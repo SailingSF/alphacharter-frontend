@@ -38,7 +38,7 @@ function LoginPage() {
     // Optionally remove the refresh token as well
 };
 
-const warningComponent = { title: "Attention:", text: "Create an account first to gain access to AlphaCharter features."}
+const warningComponent = { title: "Attention:", text: "Create an account first to gain access to all AlphaCharter features."}
 
   return (
     <Container maxWidth="sm" sx={{ marginBottom: '4rem' }}>

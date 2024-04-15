@@ -50,7 +50,7 @@ function RegisterForm() {
         }
     };
 
-    const warningComponent = { title: "Attention:", text: "Signing up now does not grant usage access to the AlphaCharter chat and other features at the moment. It does put you first in line for when it becomes publicly available and eligible for free usage, access to beta access, and other features."}
+    const warningComponent = { title: "Attention:", text: "Signing up now does not grant usage access to the AlphaCharter AI chat and other features at the moment. However, signing up now does put you first in line for when features become publicly available, and makes you eligible for free usage, access to beta the beta, and other features."}
 
     return (
         <Container component="main" maxWidth="sm" sx={{ marginBottom: '4rem' }}>
