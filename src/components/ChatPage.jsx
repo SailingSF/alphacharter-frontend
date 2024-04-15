@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Paper, Typography } from '@mui/material';
+import { Container, TextareaAutosize, Button, Paper, Typography } from '@mui/material';
 import { MessageItem, MessageList } from './MessageComponents';
 import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
 import { styled } from '@mui/system';
 import { marked } from 'marked';
+import DOMPurify from 'dompurify'; 
 
+marked.setOptions({
+  breaks: true, // Converts single line breaks to <br>
+});
 // Styled components
 const ChatContainer = styled(Paper)(({ theme }) => ({
   maxHeight: '80vh',
@@ -20,12 +24,32 @@ const ChatContainer = styled(Paper)(({ theme }) => ({
 
 const InputArea = styled('div')(({ theme }) => ({
   display: 'flex',
+  flexDirection: 'flex-end',
   marginTop: 'auto',
   padding: '10px 0',
   gap: theme.spacing(1)
   
 }));
 
+const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
+  width: '100%',
+  padding: '18.5px 14px',
+  fontSize: '1rem',
+  fontFamily: theme.typography.fontFamily,
+  boxSizing: 'border-box',
+  borderRadius: 4,
+  border: '1px solid #ccc',
+  color: theme.palette.text.primary,
+  backgroundColor: theme.palette.background.dark,
+  resize: 'none',
+  overflowY: 'auto',
+  maxHeight: '100px',
+  transition: 'border-color 0.2s ease-in-out',
+  '&:focus': {
+    borderColor: theme.palette.primary.main,
+    outline: 'none'
+  }
+}));
 
 
 function Chat() {
@@ -45,6 +69,7 @@ function Chat() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!prompt.trim()) return; // Prevent sending empty messages
+
     const payload = {
       prompt: prompt,
       ...(threadId && { thread_id: threadId }),
@@ -54,7 +79,10 @@ function Chat() {
       const response = await axiosInstance.post('api/submit_prompt/', payload);
       const { job_id, thread_id } = response.data;
       setThreadId(thread_id);
-      setMessages([...messages, { text: prompt, owner: 'user' }]);
+
+      const renderedHtml = DOMPurify.sanitize(marked(prompt));
+
+      setMessages([...messages, { text: prompt, html: renderedHtml, owner: 'user' }]);
       setPrompt('');
       checkJobStatus(job_id);
       setAuthError('');
@@ -87,10 +115,10 @@ function Chat() {
           };
 
           // Convert markdown to HTML
-          const html = marked(item.text || '', { renderer });
+          const sanitizedHtml = DOMPurify.sanitize(marked(item.text || ''));
 
           return {
-            html,
+            html: sanitizedHtml,
             imageUrl: '', // If needed, you can extract image URLs here
             owner: 'assistant',
           };
@@ -125,21 +153,31 @@ function Chat() {
         <MessageList>
             {messages.map((message, index) => (
             <MessageItem key={index} owner={message.owner} >
-                <Typography variant='body1' dangerouslySetInnerHTML={{ __html: message.html || message.text}} />
+                <Typography variant='body1' dangerouslySetInnerHTML={{ __html: message.html || marked(message.text) }} />
                 {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
             </MessageItem>
             ))}
         </MessageList>
         <form onSubmit={handleSubmit}>
             <InputArea>
-                <TextField
-                    fullWidth
-                    variant="outlined"
-                    placeholder="Type a message..."
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                />
-                <Button type="submit" variant="contained" color="primary">Send</Button>
+            <StyledTextarea
+              minRows={1}
+              style={{ 
+                flex: 1, // Take remaining space
+                minHeight: '20px', // Set a minimum height
+              }}
+              placeholder="Type a message..."
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+            />
+                <Button type="submit" 
+                variant="contained" 
+                color="primary" 
+                style={{
+                  maxHeight: '100px', // Adjust this based on your TextareaAutosize height
+                  marginLeft: '8px', // Optional: adds some space between text area and button
+                }}
+                >Send</Button>
             </InputArea>
         </form>
       </ChatContainer>
