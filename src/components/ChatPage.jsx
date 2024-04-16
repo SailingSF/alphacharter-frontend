@@ -80,19 +80,19 @@ function Chat() {
       const { job_id, thread_id } = response.data;
       setThreadId(thread_id);
 
-      const renderedHtml = DOMPurify.sanitize(marked(prompt));
+      const renderedHtml = DOMPurify.sanitize(marked(prompt));  // protect html
 
       setMessages([...messages, { text: prompt, html: renderedHtml, owner: 'user' }]);
-      setPrompt('');
-      checkJobStatus(job_id);
-      setAuthError('');
+      setPrompt(''); // clear prompt after submit
+      checkJobStatus(job_id); // call checking job for status and response
+      setAuthError(''); // clear errors
       setUsageError('');
     } catch (error) {
-      if (error.response && error.response.data.code === "token_not_valid") {
-        setAuthError("You are not logged in or your session has expired, please log in.");
+      if (error.response && error.response.data.code === "token_not_valid") { 
+        setAuthError("You are not logged in or your session has expired, please log in."); // send error if not logged in
       }
       if (error.response) {
-        setUsageError(error.response.data.error)
+        setUsageError(error.response.data.error) // set error as API error if not invalid token error
       }
       console.error(error);
     }
