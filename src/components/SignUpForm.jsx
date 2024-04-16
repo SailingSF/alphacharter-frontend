@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function RegisterForm() {
     const [formData, setFormData] = useState({
-        username: '',
+        first_name: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -28,7 +28,7 @@ function RegisterForm() {
             console.log('User registered:', response.data);
             setSuccess('Now Login!');
             setFormData({
-                username: '',
+                first_name: '',
                 email: '',
                 password: '',
                 confirmPassword: '',
@@ -67,11 +67,11 @@ function RegisterForm() {
                         margin="normal"
                         required
                         fullWidth
-                        label="Username"
-                        name="username"
-                        autoComplete="username"
+                        label="First Name"
+                        name="first_name"
+                        autoComplete="name"
                         autoFocus
-                        value={formData.username}
+                        value={formData.first_name}
                         onChange={handleChange}
                     />
                     <TextField

@@ -48,8 +48,8 @@ const warningComponent = { title: "Attention:", text: "Create an account first t
       </Typography>
       <form onSubmit={handleLogin}>
         <TextField
-          name="username"
-          label="Username"
+          name="email"
+          label="Email"
           variant="outlined"
           fullWidth
           autoFocus
