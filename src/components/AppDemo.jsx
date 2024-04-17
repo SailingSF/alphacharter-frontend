@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Card, CardActionArea, Container, Grid, Typography } from '@mui/material';
+import { Card, CardActionArea, Container, Grid, Typography, Box } from '@mui/material';
 import { MessageItem, MessageList } from './MessageComponents';
 import autocomapny from '../images/autocompanies_2022.png';
 import chipcompanies from '../images/chipcompanies_ps_2022.png';
@@ -59,9 +59,19 @@ function DemoSection() {
             How to Use The AlphaCharter Assistant
         </Typography>
       <Grid container spacing={0}>
-        <Grid item xs={12} md={4} padding={'20px'}>
+        <Grid item xs={12} md={4}>
+          <Box sx={{
+            padding: '20px',
+            backgroundColor: theme.palette.background.medium,
+            borderRadius: '10px 0 0 10px', // rounded corners on the left
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%', // this will be controlled by the flex parent
+            border: '2px solid white',
+            borderRight: 0,
+          }}>
           {Object.keys(demoChats).map((key) => (
-            <Card key={key} style={{ padding: '20px', backgroundColor: theme.palette.background.surface, marginBottom: '20px' }} onClick={() => setActiveChat(demoChats[key])}>
+            <Card key={key} style={{ padding: '20px', backgroundColor: theme.palette.background.surface, marginBottom: '20px', boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.8)' }} onClick={() => setActiveChat(demoChats[key])}>
               <CardActionArea>
                 <Typography variant="h5" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)' }}>
                   {demoChats[key].title}
@@ -69,8 +79,9 @@ function DemoSection() {
               </CardActionArea>
             </Card>
           ))}
+          </Box>
         </Grid>
-        <Grid item xs={12} md={8} style={{ backgroundColor: theme.palette.background.dark}}>
+        <Grid item xs={12} md={8} sx={{ backgroundColor: theme.palette.background.dark, display: 'flex', flexDirection: 'column'}}>
           <MessageList height={'600px'}>
             {activeChat.messages.map((message, index) => (
               <MessageItem key={index} owner={message.owner}>
