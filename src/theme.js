@@ -14,7 +14,8 @@ const theme = createTheme({
         surface: '#9E9E9E',
         header: '#424242', //gray 800
         dark: '#161516',
-        light: '#F5F5F5' // gray 100
+        light: '#F5F5F5', // gray 100
+        medium: '#bdbdbd',
     },
     text: {
         primary: '#f5f5f5', //white
@@ -27,6 +28,9 @@ const theme = createTheme({
   typography: {
     fontFamily: '"Bookman", "URW Bookman L", "serif"'
   },
+  shape: {
+    borderRadius: '10px'
+  }
   // Add more theme customization here
 });
 
