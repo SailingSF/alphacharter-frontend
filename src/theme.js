@@ -7,7 +7,7 @@ const theme = createTheme({
       mainVariant: '#D84315', //deep orange 800
     },
     secondary: {
-      main: '#dc004e',
+      main: '#e31855',
     },
     background: {
         default: '#616161',
@@ -26,7 +26,32 @@ const theme = createTheme({
 
   },
   typography: {
-    fontFamily: '"Bookman", "URW Bookman L", "serif"'
+    fontFamily: '"Bookman", "URW Bookman L", "serif"',
+    h1: {
+      fontFamily: 'Libre Baskerville, serif',
+      fontWeight: 700
+    },
+    h2: {
+      fontFamily: 'Libre Baskerville, serif',
+      fontWeight: 400
+    },
+    h3: {
+      fontFamily: 'Libre Baskerville, serif',
+      fontWeight: 400
+    },
+    h4: {
+      fontFamily: 'Libre Baskerville, serif',
+      fontWeight: 400
+    },
+    h5: {
+      fontFamily: 'Libre Baskerville, serif',
+      fontWeight: 400
+    },
+    button: {
+      fontFamily: 'Libre Baskerville, serif',
+      fontWeight: 400,
+      letterSpacing: 0.5
+    }
   },
   shape: {
     borderRadius: '10px'
