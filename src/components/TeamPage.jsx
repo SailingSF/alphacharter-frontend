@@ -11,7 +11,8 @@ function TeamPage() {
     const bios = [
         {
             name: "Max",
-            description: "He made this",
+            description: "Making visualizations for financial data was something Max did on his freetime (nerd) and with the help of AI he decided to make that capability into an app so that anyone could make charts to explore financial data as easily as speaking with a chatbot. With strong experience in finance, AI, and crypto as a Product Manager Max built AlphaCharter to be the easiest (and cheapest) way to get the help of a quant in all investing research.",
+            contact: 'max@alphacharter.xyz',
             photo: maxheadshot,
         }
     ];
@@ -41,8 +42,8 @@ function TeamPage() {
                         src={member.photo}
                         alt={member.name}
                         sx={{ 
-                            width: 120, 
-                            height: 150, 
+                            width: 192, 
+                            height: 240, 
                             marginBottom: 2, 
                             marginTop: 2,
                             borderRadius: '5%' // Adjust this for more/less roundness
@@ -58,7 +59,12 @@ function TeamPage() {
                     <Typography gutterBottom variant="h5" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)' }}>
                         {member.name}
                     </Typography>
-                    <Typography variant="body2" color={theme.palette.text.secondary} sx={{ width: '100%', textAlign: 'left', paddingLeft: 2 }}>
+                    <Typography variant='body1' align='center' gutterBottom>
+                        <a href={`mailto:${member.contact}`} style={{ textDecoration: 'none', color: 'inherit'}}>
+                            {member.contact}
+                        </a>
+                    </Typography>
+                    <Typography variant="body2" color={theme.palette.text.dark} sx={{ width: '100%', textAlign: 'left', paddingLeft: 2 }}>
                         {member.description}
                     </Typography>
                     </CardContent>

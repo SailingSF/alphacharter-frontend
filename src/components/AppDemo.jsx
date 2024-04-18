@@ -67,7 +67,7 @@ function DemoSection() {
             display: 'flex',
             flexDirection: 'column',
             height: '100%', // this will be controlled by the flex parent
-            border: '2px solid white',
+            border: '1px solid white',
             borderRight: 0,
           }}>
           {Object.keys(demoChats).map((key) => (
