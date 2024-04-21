@@ -66,6 +66,15 @@ const theme = createTheme({
           borderRadius: 0,             // Removing rounded corners
         }
       }
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          // Reset or redefine styles specific to Card
+          color: '#F5F5F5',
+          borderRadius: '3px', // Different border radius for Card
+        }
+      }
     }
   }
   // Add more theme customization here
