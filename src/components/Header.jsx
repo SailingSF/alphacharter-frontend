@@ -22,7 +22,7 @@ function Header() {
     };
 
     return (
-        <AppBar position='static'>
+        <AppBar position='static' sx={{ top: 0}}>
             <Toolbar style={{backgroundColor: theme.palette.background.header, color: theme.palette.text.header}}>
                 <Typography variant="h5" component="div" style={{ flexGrow: 1 }}>
                     <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>AlphaCharter</Link>

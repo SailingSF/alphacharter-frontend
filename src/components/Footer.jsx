@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 function Footer() {
     const theme = useTheme();
   return (
-    <Box component="footer" sx={{ backgroundColor: theme.palette.background.dark, padding: '15px 0' }}>
+    <Box component="footer" sx={{ backgroundColor: theme.palette.background.dark, padding: '15px 0', bottom: 0}}>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4}>
