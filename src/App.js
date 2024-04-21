@@ -10,6 +10,7 @@ import ChatPage from './components/ChatPage';
 import SignUpForm from './components/SignUpForm';
 import Footer from './components/Footer';
 import TeamPage from './components/TeamPage';
+import AboutPage from './components/AboutPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
         <Footer />
       </Router>
