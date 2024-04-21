@@ -27,7 +27,7 @@ function Header() {
                 <Typography variant="h5" component="div" style={{ flexGrow: 1 }}>
                     <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>AlphaCharter</Link>
                 </Typography>
-                <Button component={Link} to="/" color="inherit">Home</Button>
+                <Button component={Link} to="/about" color="inherit">About</Button>
                 <Button component={Link} to="/chat" sx={chatButtonStyle}>AlphaAI</Button>
                 {/* <Button component={Link} to="/about" color="inherit">About</Button> */}
                 <Button component={Link} to="/login" color="inherit">Login</Button>
