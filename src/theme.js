@@ -16,12 +16,14 @@ const theme = createTheme({
         dark: '#161516',
         light: '#F5F5F5', // gray 100
         medium: '#bdbdbd',
+        paper: '#F5F5F5',
     },
     text: {
         primary: '#f5f5f5', //white
         header: '#FFA000', //amber 700
         dark: '#161516',
         light: '#F5F5F5', //grey 100
+        paper: '#9E9E9E'
     },
 
   },
@@ -55,6 +57,16 @@ const theme = createTheme({
   },
   shape: {
     borderRadius: '10px'
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          color: '#161516',
+          borderRadius: 0,             // Removing rounded corners
+        }
+      }
+    }
   }
   // Add more theme customization here
 });
