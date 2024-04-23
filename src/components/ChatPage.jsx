@@ -153,7 +153,7 @@ function Chat() {
         <MessageList>
             {messages.map((message, index) => (
             <MessageItem key={index} owner={message.owner} >
-                <Typography variant='body1' dangerouslySetInnerHTML={{ __html: message.html || marked(message.text) }} />
+                <Typography dangerouslySetInnerHTML={{ __html: message.html || marked(message.text) }} />
                 {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
             </MessageItem>
             ))}

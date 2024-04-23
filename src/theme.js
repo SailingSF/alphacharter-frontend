@@ -23,7 +23,8 @@ const theme = createTheme({
         header: '#FFA000', //amber 700
         dark: '#161516',
         light: '#F5F5F5', //grey 100
-        paper: '#9E9E9E'
+        paper: '#9E9E9E',
+        white: '#f5f5f5',
     },
 
   },
