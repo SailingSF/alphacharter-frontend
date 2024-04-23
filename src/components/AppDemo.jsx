@@ -56,7 +56,7 @@ function DemoSection() {
     return (
         <Container maxWidth='xl'>
         <Typography variant='h4' align='center' gutterBottom>
-            How to Use The AlphaCharter Assistant
+            How to Use The AlphaCharter <strong>AlphaAI</strong> Assistant
         </Typography>
       <Grid container spacing={0}>
         <Grid item xs={12} md={4}>
@@ -71,7 +71,19 @@ function DemoSection() {
             borderRight: 0,
           }}>
           {Object.keys(demoChats).map((key) => (
-            <Card key={key} style={{ padding: '20px', backgroundColor: theme.palette.background.surface, marginBottom: '20px', boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.8)' }} onClick={() => setActiveChat(demoChats[key])}>
+            <Card key={key} style={{ 
+              padding: '20px', 
+              backgroundColor: theme.palette.background.surface, 
+              marginBottom: '20px', 
+              boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.8)',
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover, // Change background color on hover
+                boxShadow: '0px 10px 10px rgba(0, 0, 0, 0.9)', // Increase shadow on hover
+                cursor: 'pointer' // Change cursor to indicate clickable
+              }
+             
+            }} 
+              onClick={() => setActiveChat(demoChats[key])}>
               <CardActionArea>
                 <Typography variant="h5" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)' }}>
                   {demoChats[key].title}
