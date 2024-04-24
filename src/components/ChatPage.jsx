@@ -58,6 +58,7 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [authError, setAuthError] = useState('');
   const [usageError, setUsageError] = useState('');
+  const [generalError, setGeneralError] = useState('');
 
   const axiosInstance = axios.create({
     baseURL: 'https://financeassistant-01-7c9325856268.herokuapp.com/',
@@ -124,6 +125,9 @@ function Chat() {
           };
         });
         setMessages((prevMessages) => [...prevMessages, ...resultMessages]);
+      } else if (response.data.status === 'error') {
+        setGeneralError(response.data.message || 'An error occured during the execution of the prompt');
+        return
       } else {
         // Poll the API again after a delay if the job is not complete
         setTimeout(() => checkJobStatus(jobId), 2000);
@@ -149,6 +153,7 @@ function Chat() {
     <Container>
       {authError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{authError}</Typography>}
       {usageError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{usageError}</Typography>}
+      {generalError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{generalError}</Typography>}
       <ChatContainer sx={{ marginBlock: '1rem' }}>
         <MessageList>
             {messages.map((message, index) => (
