@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Box, TextareaAutosize, Button, Paper, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { MessageItem, MessageList } from './MessageComponents';
 import { useTheme } from '@mui/material/styles';
@@ -102,6 +102,8 @@ function Chat() {
       const response = await axiosInstance.get(`/api/get_thread_messages/`, {
         params: { created_at: timestamp }
       });
+      const thread_id = response.data.thread_id;
+      setThreadId(thread_id);
       const fetchedMessages = response.data.messages.map((msg, index) => {
         if (index === 0) { // Check if it's the first message
           const firstCutIndex = msg.text.indexOf('\n\n');
@@ -218,6 +220,7 @@ function Chat() {
                 {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
             </MessageItem>
             ))}
+            <div ref={(messagesEndRef)} /> {/* where to scroll to */}
         </MessageList>
         <form onSubmit={handleSubmit}>
             <InputArea>
