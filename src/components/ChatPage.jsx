@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, TextareaAutosize, Button, Paper, Typography } from '@mui/material';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Container, Box, TextareaAutosize, Button, Paper, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { MessageItem, MessageList } from './MessageComponents';
 import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
@@ -51,21 +51,77 @@ const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
   }
 }));
 
+const axiosInstance = axios.create({
+  baseURL: 'https://financeassistant-01-7c9325856268.herokuapp.com/',
+  headers: {
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+  }
+});
 
 function Chat() {
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
   const [prompt, setPrompt] = useState('');
   const [threadId, setThreadId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [authError, setAuthError] = useState('');
   const [usageError, setUsageError] = useState('');
   const [generalError, setGeneralError] = useState('');
+  const [threads, setThreads] = useState([]);
+  const messagesEndRef = useRef(null);
 
-  const axiosInstance = axios.create({
-    baseURL: 'https://financeassistant-01-7c9325856268.herokuapp.com/',
-    headers: {
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+
+   const fetchThreads = async () => {
+    try {
+      const response = await axiosInstance.get('api/get_threads/');
+      setThreads(response.data.threads);
+    } catch (error) {
+      console.error('Error fetching threads:', error);
     }
-});
+  };
+
+  useEffect(() => {
+    axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
+    fetchThreads();
+  }, [accessToken]);
+  
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const handleThreadChange = async (event) => {
+    const selectedThreadId = event.target.value;
+    setThreadId(selectedThreadId);
+    if (selectedThreadId) {
+      await fetchMessages(selectedThreadId);
+    }
+    // This function will be extended to load messages later
+  };
+
+  const fetchMessages = async (timestamp) => {
+    try {
+      const response = await axiosInstance.get(`/api/get_thread_messages/`, {
+        params: { created_at: timestamp }
+      });
+      const fetchedMessages = response.data.messages.map((msg, index) => {
+        if (index === 0) { // Check if it's the first message
+          const firstCutIndex = msg.text.indexOf('\n\n');
+          if (firstCutIndex !== -1) {
+            const secondCutIndex = msg.text.indexOf('\n\n', firstCutIndex + 2);
+            if (secondCutIndex !== -1) {
+              return { ...msg, text: msg.text.slice(secondCutIndex + 2) };
+            }
+          }
+          return msg;  
+        }
+        return msg;
+      });
+      setMessages(fetchedMessages);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      setGeneralError('Failed to fetch messages.');
+    }
+  };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -186,7 +242,27 @@ function Chat() {
             </InputArea>
         </form>
       </ChatContainer>
-      <Button onClick={handleNewConversation} variant='contained' color='secondary' sx={{ marginBottom: '2rem'}}>Start New Conversation</Button>
+      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mt: 2, mb: '2rem' }}>
+        <Button onClick={handleNewConversation} variant='contained' color='secondary' sx={{ minHeight: '20px'}}>Start New Conversation</Button>
+        <FormControl variant="filled" sx={{ m: 1, minWidth: 240, align: 'right' }}>
+          <InputLabel id="thread-select-label">Previous Threads</InputLabel>
+          <Select
+            labelId="thread-select-label"
+            id="thread-select"
+            value={threadId || ''}
+            onChange={handleThreadChange}
+            displayEmpty
+            inputProps={{ 'aria-label': 'Without label' }}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {threads.map((thread, index) => (
+              <MenuItem key={index} value={thread}>{new Date(thread).toLocaleString()}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
     </Container>
   );
 }
