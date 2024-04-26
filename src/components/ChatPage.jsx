@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Box, TextareaAutosize, Button, Paper, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { Container, Box, TextareaAutosize, Button, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { MessageItem, MessageList } from './MessageComponents';
 import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
@@ -11,10 +11,10 @@ marked.setOptions({
   breaks: true, // Converts single line breaks to <br>
 });
 // Styled components
-const ChatContainer = styled(Paper)(({ theme }) => ({
+const ChatContainer = styled('div')(({ theme }) => ({
   maxHeight: '80vh',
   minHeight: '80vh',
-  overflow: 'auto',
+  overflowY: 'auto',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: '#060606',
@@ -67,7 +67,7 @@ function Chat() {
   const [usageError, setUsageError] = useState('');
   const [generalError, setGeneralError] = useState('');
   const [threads, setThreads] = useState([]);
-  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
 
    const fetchThreads = async () => {
@@ -79,13 +79,24 @@ function Chat() {
     }
   };
 
+  const scrollToBottom = () => {
+    const scroll = chatContainerRef.current;
+    if (scroll) {
+      scroll.scrollTop = scroll.scrollHeight;
+    }
+  };
+
   useEffect(() => {
     axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
     fetchThreads();
   }, [accessToken]);
   
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const timer = setTimeout(() => {
+      scrollToBottom();
+    }, 200); // 200 ms delay to scroll as page loads
+
+    return () => clearTimeout(timer);
   }, [messages]);
 
   const handleThreadChange = async (event) => {
@@ -178,7 +189,7 @@ function Chat() {
 
           return {
             html: sanitizedHtml,
-            imageUrl: '', // If needed, you can extract image URLs here
+            imageUrl: '', // If needed, another format for message URLs
             owner: 'assistant',
           };
         });
@@ -212,7 +223,7 @@ function Chat() {
       {authError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{authError}</Typography>}
       {usageError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{usageError}</Typography>}
       {generalError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{generalError}</Typography>}
-      <ChatContainer sx={{ marginBlock: '1rem' }}>
+      <ChatContainer ref={chatContainerRef} sx={{ marginBlock: '1rem' }}>
         <MessageList>
             {messages.map((message, index) => (
             <MessageItem key={index} owner={message.owner} >
@@ -220,7 +231,6 @@ function Chat() {
                 {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
             </MessageItem>
             ))}
-            <div ref={(messagesEndRef)} /> {/* where to scroll to */}
         </MessageList>
         <form onSubmit={handleSubmit}>
             <InputArea>
