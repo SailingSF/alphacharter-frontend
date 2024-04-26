@@ -62,6 +62,7 @@ function Chat() {
   const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
   const [prompt, setPrompt] = useState('');
   const [threadId, setThreadId] = useState(null);
+  const [threadTimestamp, setThreadTimestamp] = useState('');
   const [messages, setMessages] = useState([]);
   const [authError, setAuthError] = useState('');
   const [usageError, setUsageError] = useState('');
@@ -100,10 +101,10 @@ function Chat() {
   }, [messages]);
 
   const handleThreadChange = async (event) => {
-    const selectedThreadId = event.target.value;
-    setThreadId(selectedThreadId);
-    if (selectedThreadId) {
-      await fetchMessages(selectedThreadId);
+    const timestamp = event.target.value;
+    setThreadTimestamp(timestamp);
+    if (timestamp) {
+      await fetchMessages(timestamp);
     }
     // This function will be extended to load messages later
   };
@@ -257,19 +258,16 @@ function Chat() {
       </ChatContainer>
       <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mt: 2, mb: '2rem' }}>
         <Button onClick={handleNewConversation} variant='contained' color='secondary' sx={{ minHeight: '20px'}}>Start New Conversation</Button>
-        <FormControl variant="filled" sx={{ m: 1, minWidth: 240, align: 'right' }}>
+        <FormControl variant="outlined" sx={{ m: 1, minWidth: 280, align: 'right' }}>
           <InputLabel id="thread-select-label">Previous Threads</InputLabel>
           <Select
             labelId="thread-select-label"
             id="thread-select"
-            value={threadId || ''}
+            value={threadTimestamp}
             onChange={handleThreadChange}
-            displayEmpty
+            label="Previous Threads"
             inputProps={{ 'aria-label': 'Without label' }}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
             {threads.map((thread, index) => (
               <MenuItem key={index} value={thread}>{new Date(thread).toLocaleString()}</MenuItem>
             ))}
