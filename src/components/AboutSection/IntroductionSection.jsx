@@ -7,8 +7,8 @@ const IntroductionSection = () => {
       <Typography variant="h3" align='center' gutterBottom>
         About
       </Typography>
-      <Typography variant="subtitle1" paragraph>
-        What is AlphaCharter?
+      <Typography variant="subtitle1" align='center' paragraph>
+        <em>What is AlphaCharter?</em>
       </Typography>
       <Typography variant="h4" gutterBottom>
         Background
