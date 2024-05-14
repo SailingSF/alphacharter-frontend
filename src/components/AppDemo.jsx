@@ -4,8 +4,8 @@ import { Card, CardActionArea, Container, Grid, Typography, Box } from '@mui/mat
 import { MessageItem, MessageList } from './MessageComponents';
 import autocomapny from '../images/autocompanies_2022.png';
 import chipcompanies from '../images/chipcompanies_ps_2022.png';
-import debtequity_industrials from '../images/debtequity_industrials.png';
-import interestcoverage_industrials from '../images/interestcoverage_industrials.png';
+import manufactoring_evebitda from '../images/manufacturing_evebitda.png';
+import manufacturing_debtequity from '../images/manufacturing_debtequity.png';
 import cruise_debtequity_img from '../images/cruise_debtequity.png';
 import cruise_interestcoverage from '../images/cruise_interestcoverage.png';
 
@@ -26,15 +26,14 @@ const demoChats = {
       // Add more messages as needed
     ]},
     industrials_debt: {
-        title: 'Industrial Company Debt Valuation',
+        title: 'Manufacturing EV/EBITDA',
         messages: [
-            { owner: 'user', text: 'Help me value industrial companies like GE who have a lot of debt. I want to see how that affects their valuations.'},
-            { owner: 'assistant', text: "I made two charts I showing the <strong>Debt to Equity Ratio</strong> and the <strong>Interest Coverage Ratio</strong> for four industrial companies GE (GE), Honeywell (HON), 3M (MMM), and Caterpillar (CAT)", imageUrl: debtequity_industrials },
-            { owner: 'assistant', text: "Here's the Interest Coverage Ratio:", imageUrl: interestcoverage_industrials},
-            { owner: 'user', text: "Thank you, can you tell me more about the interest coverage ratio?"},
-            { owner: 'assistant', text: "ICR is calculated as Earnings Before Interest and Taxes (EBIT) divided by Interest Expense. This ratio measures a company's ability to meet its interest obligations from its operating income, which is crucial for understanding how debt might influence a company's financial health."},
-            { owner: 'user', text: "Could you give me a summary of some analysis based on these charts?"},
-            { owner: 'assistant', text: "Certainly, here's an Analysis Summary:<br></br>GE has shown volatility in its Debt to Equity Ratio, although it tends to have a higher ratio compared to its peers, indicating relatively higher debt levels. Its Interest Coverage Ratio has improved significantly in recent years, suggesting better earnings relative to its interest obligations.<br></br>HON maintains lower Debt to Equity Ratios, indicating prudent leverage usage. Its Interest Coverage Ratio has experienced fluctuations but generally indicates a strong ability to cover interest expenses.<br></br>MMM displayed a spike in the Debt to Equity Ratio during mid-2023, which requires a closer look at their financial decisions in that period. The Interest Coverage ratio has varied wildly in the same period, suggesting significant financial changes or events.<br></br>CAT consistently shows lower Debt to Equity Ratios, implying modest leverage. Its Interest Coverage Ratio has been strong, indicating sound financial health in managing debt.<br></br>For detailed analysis, we should explore these metrics in the context of their respective sectors' averages, recent business developments, and broader economic conditions. Would you like to delve deeper into any particular company or explore additional financial metrics?"}
+            { owner: 'user', text: 'Help me value industrial/manufacturing companies like GE who have a lot of debt. I want to see how that affects their valuations.'},
+            { owner: 'assistant', text: "I made a chart showing the <strong>EV to EBITDA Ratio</strong> for some more indebted manufactring companies", imageUrl: manufactoring_evebitda },
+            { owner: 'user', text: "Can you tell me about what EV/EBITDA represents?"},
+            { owner: 'assistant', text: "Understanding EV/EBITDA: <br>EV/EBITDA stands for Enterprise Value to Earnings Before Interest, Taxes, Depreciation, and Amortization. This financial metric is used to evaluate the valuation of a company relative to its core profit generation ability, excluding the effects of its capital structure and non-cash depreciation expenses. Essentially, it measures how much investors are willing to pay for a dollar of a company's earnings, accounting for its debt and cash levels.<br>Enterprise Value (EV) represents the total value of a company, combining its market capitalization, debt, and subtracting any cash. It reflects the theoretical takeover price if a company were to be bought.<br>EBITDA provides an approximation of a company's current operational profitability and is used because it avoids the distortions from varying capital structures, taxation, and non-cash accounting practices like depreciation.<br><br>Evaluating EV/EBITDA:<br>A lower EV/EBITDA value generally suggests a company might be undervalued relative to its earnings potential, making it a potentially attractive investment.<br>Conversely, a higher EV/EBITDA value indicates the market may be placing a premium on the company, possibly due to expected growth in profitability or efficiency."},
+            { owner: 'user', text: "How else could I value these indebted companies?"},
+            { owner: 'assistant', text: "Here is the Debt to Equity of these selected companies to understand just how indebted they are.", imageUrl: manufacturing_debtequity }
         ]
     },
     cruise_debtequity: {
