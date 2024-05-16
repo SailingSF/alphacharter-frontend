@@ -2,19 +2,21 @@ import { styled, Box } from '@mui/system';
 
 const MessageList = styled(Box)(({ theme }) => ({
     overflowY: 'scroll',
+    overflowX: 'hidden', 
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
     padding: theme.spacing(1),
+    marginRight: '4px',
     '&::-webkit-scrollbar': {
-        width: '8px',
+        width: '10px',
     },
     '&::-webkit-scrollbar-track': {
         backgroundColor: theme.palette.grey[900],
     },
     '&::-webkit-scrollbar-thumb': {
         backgroundColor: 'black',
-        boxShadow: 'inset 0 0 0 0.5px white',
+        boxShadow: 'inset 0 0 0 1px white',
         borderRadius: '8px',
     }
   }));
