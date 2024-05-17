@@ -2,9 +2,28 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
+import { trackEvent } from '../analytics';
 
 function Header() {
     const theme = useTheme();
+
+    const handleLoginClick = () => {
+        trackEvent('Button', 'Click', 'Header Login Button Click');
+        // Navigate to the href
+        window.location.href = '/login';
+    };
+
+    const handleAlphaaiClick = () => {
+        trackEvent('Button', 'Click', 'Header AlphaAI Button Click');
+        // Navigate to the href
+        window.location.href = '/chat';
+    };
+
+    const handleAboutClick = () => {
+        trackEvent('Button', 'Click', 'Header About Button Click');
+        // Navigate to the href
+        window.location.href = '/about';
+    };
 
     const chatButtonStyle = {
         backgroundColor: theme.palette.secondary.main,
@@ -27,10 +46,10 @@ function Header() {
                 <Typography variant="h5" component="div" style={{ flexGrow: 1 }}>
                     <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>AlphaCharter</Link>
                 </Typography>
-                <Button component={Link} to="/about" color="inherit">About</Button>
-                <Button component={Link} to="/chat" sx={chatButtonStyle}>AlphaAI</Button>
+                <Button onClick={handleAboutClick} color="inherit">About</Button>
+                <Button onClick={handleAlphaaiClick} sx={chatButtonStyle}>AlphaAI</Button>
                 {/* <Button component={Link} to="/about" color="inherit">About</Button> */}
-                <Button component={Link} to="/login" color="inherit">Login</Button>
+                <Button onClick={handleLoginClick} color="inherit">Login</Button>
             </Toolbar>
         </AppBar>
     );
