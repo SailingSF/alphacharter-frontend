@@ -21,7 +21,6 @@ const ChatContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-
 const InputArea = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'flex-end',
@@ -93,12 +92,10 @@ function Chat() {
   }, [accessToken]);
   
   useEffect(() => {
-    const timer = setTimeout(() => {
-      scrollToBottom();
-    }, 200); // 200 ms delay to scroll as page loads
-
-    return () => clearTimeout(timer);
+    scrollToBottom();
   }, [messages]);
+
+
 
   const handleThreadChange = async (event) => {
     const timestamp = event.target.value;
@@ -153,7 +150,11 @@ function Chat() {
 
       const renderedHtml = DOMPurify.sanitize(marked(prompt));  // protect html
 
-      setMessages([...messages, { text: prompt, html: renderedHtml, owner: 'user' }]);
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages, { text: prompt, html: renderedHtml, owner: 'user' }];
+        scrollToBottom();
+        return updatedMessages;
+      });
       setPrompt(''); // clear prompt after submit
       checkJobStatus(job_id); // call checking job for status and response
       setAuthError(''); // clear errors
@@ -194,7 +195,11 @@ function Chat() {
             owner: 'assistant',
           };
         });
-        setMessages((prevMessages) => [...prevMessages, ...resultMessages]);
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages, ...resultMessages];
+          scrollToBottom();
+          return updatedMessages;
+        });
       } else if (response.data.status === 'error') {
         setGeneralError(response.data.message || 'An error occured during the execution of the prompt');
         return
