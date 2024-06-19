@@ -8,6 +8,7 @@ import manufactoring_evebitda from '../images/manufacturing_evebitda.png';
 import manufacturing_debtequity from '../images/manufacturing_debtequity.png';
 import cruise_debtequity_img from '../images/cruise_debtequity.png';
 import cruise_interestcoverage from '../images/cruise_interestcoverage.png';
+import manuf_screen_stock_perf from '../images/manuf_screen_stock_perf.png';
 
 const demoChats = {
     automotive: { title: "Auto Company Stock Performance",
@@ -25,8 +26,17 @@ const demoChats = {
       { owner: 'assistant', text: "This chart visually represents the valuation of these companies based on their sales revenue, where the P/S ratio is a comparison of a company's stock price to its revenue per share.<br></br>A few insights from this chart:<br></br><strong>Nvidia (NVDA)</strong> shows a notably higher P/S ratio compared to the others, which indicates the market is willing to pay more for each dollar of NVDA's sales. This could be due to expectations of higher growth or better profit margins. <strong>AMD</strong> also shows a relatively high P/S ratio though not as high as Nvidia, suggesting the market also has high expectations for AMD's growth and profitability. <strong>Intel (INTC)</strong>, being a more established and mature company, shows the lowest P/S ratio among the four. This suggests the market views INTC as a more stable, less growth-intensive investment. <strong>Qualcomm (QCOM)</strong>'s P/S ratio is generally higher than Intel's but lower than those of AMD and NVDA, placing it in a middle ground in terms of market valuation relative to sales. The trends observed here reflect market perceptions about each company's growth potential, profitability, and risk. Higher P/S ratios for Nvidia and AMD indicate stronger growth expectations, while the lower ratio for Intel reflects its established presence and possibly lower growth outlook. Qualcomm's position suggests it strikes a balance between growth expectations and stability." },
       // Add more messages as needed
     ]},
+    manuf_screen: {
+      title: 'Screen for Manufacturing Companies',
+      messages: [
+          { owner: 'user', text: "I want to compare the most profitable manufacturing companies over $50M market cap. Let's see their stock performance over the past 6 years."},
+          { owner: 'assistant', text: "Hi Max! To compare the most profitable manufacturing companies with a market cap over $50 million, we'll follow these steps:<br><br><strong>Screen for the Most Profitable Manufacturing Companies:</strong> We'll use net income as our metric for profitability.<br><strong>Generate Stock Performance Chart:</strong> We'll then generate a stock performance chart for the top companies over the last 6 years.<br><br>Let's start by screening for the most profitable manufacturing companies. I'll set the minimum market cap to $50 million.<br><br>I'll proceed with that and get back to you shortly.", },
+          { owner: 'assistant', text: "We have screened the top 5 most profitable manufacturing companies with a market capitalization above $50 million. Here are the companies:<br><br><strong>NVIDIA Corporation (NVDA)</strong>: Net income of $29.75 billion<br><strong>Stellantis N.V. (STLA)</strong>: Net income of $25.42 billion<br><strong>Tesla, Inc. (TSLA)</strong>: Net income of $13.61 billion<br><strong>The Coca-Cola Company (KO)</strong>: Net income of $10.78 billion<br><strong>Emerson Electric Co. (EMR)</strong>: Net income of $10.74 billion<br><br>Now, we'll generate a stock performance chart for these companies over the past 6 years to see how their stock prices have performed.", imageUrl: manuf_screen_stock_perf},
+          { owner: 'assistant', text: "<h3>Observations:</h3><strong>NVIDIA Corporation (NVDA)</strong> has shown spectacular growth, especially from mid-2023 onwards. Its stock price saw an explosive increase.<br><strong>Stellantis N.V. (STLA)</strong> had a more fluctuating pattern but has regained and surpassed its initial value in the last few months.<br><strong>Tesla, Inc. (TSLA)</strong> witnessed massive growth starting around late 2019 and peaking by the end of 2021. However, it saw some significant drops afterward but remains far above its 2018 value.<br><strong>The Coca-Cola Company (KO)</strong> displayed relatively steady growth with some fluctuations, maintaining a stable appreciation over the years.<br><strong>Emerson Electric Co. (EMR)</strong> experienced moderate growth with some noticeable peaks around 2021-2022 and maintains a gradual upward trend.<br><br>This visualization highlights the substantial volatility in the tech-oriented stocks like NVDA and TSLA, compared to the more stable growth seen in companies like KO and EMR. Let me know if you need any further analysis or other data!"}
+      ]
+  },
     industrials_debt: {
-        title: 'Manufacturing EV/EBITDA',
+        title: 'Industrial EV/EBITDA',
         messages: [
             { owner: 'user', text: 'Help me value industrial/manufacturing companies like GE who have a lot of debt. I want to see how that affects their valuations.'},
             { owner: 'assistant', text: "I made a chart showing the <strong>EV to EBITDA Ratio</strong> for some more indebted manufactring companies", imageUrl: manufactoring_evebitda },
