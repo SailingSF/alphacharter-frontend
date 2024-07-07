@@ -12,14 +12,20 @@ marked.setOptions({
 });
 // Styled components
 const ChatContainer = styled('div')(({ theme }) => ({
-  maxHeight: '80vh',
-  minHeight: '80vh',
-  overflowY: 'auto',
+  height: '80vh',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: '#060606',
   padding: theme.spacing(2),
+  overflow: 'hidden', // Hide overflow on the container
 }));
+
+const MessagesArea = styled('div')({
+  flexGrow: 1,
+  overflowY: 'auto', // Allow vertical scrolling
+  display: 'flex',
+  flexDirection: 'column',
+});
 
 const InputArea = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -67,7 +73,6 @@ function Chat() {
   const [usageError, setUsageError] = useState('');
   const [generalError, setGeneralError] = useState('');
   const [threads, setThreads] = useState([]);
-  const chatContainerRef = useRef(null);
 
 
    const fetchThreads = async () => {
@@ -79,22 +84,23 @@ function Chat() {
     }
   };
 
-  const scrollToBottom = () => {
-    const scroll = chatContainerRef.current;
-    if (scroll) {
-      scroll.scrollTop = scroll.scrollHeight;
-    }
-  };
-
   useEffect(() => {
     axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
     fetchThreads();
   }, [accessToken]);
-  
+
+  const messagesEndRef = useRef(null);
+  const messagesAreaRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (messagesAreaRef.current) {
+      messagesAreaRef.current.scrollTop = messagesAreaRef.current.scrollHeight;
+    }
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
 
 
   const handleThreadChange = async (event) => {
@@ -135,7 +141,9 @@ function Chat() {
 
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    if (event && event.preventDefault) {
+      event.preventDefault();
+    }
     if (!prompt.trim()) return; // Prevent sending empty messages
 
     const payload = {
@@ -152,7 +160,6 @@ function Chat() {
 
       setMessages((prevMessages) => {
         const updatedMessages = [...prevMessages, { text: prompt, html: renderedHtml, owner: 'user' }];
-        scrollToBottom();
         return updatedMessages;
       });
       setPrompt(''); // clear prompt after submit
@@ -197,9 +204,9 @@ function Chat() {
         });
         setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages, ...resultMessages];
-          scrollToBottom();
           return updatedMessages;
         });
+
       } else if (response.data.status === 'error') {
         setGeneralError(response.data.message || 'An error occured during the execution of the prompt');
         return
@@ -220,47 +227,58 @@ function Chat() {
     setMessages([]);
   };
   
-  // In your UI, you can have a button or link to start a new conversation:
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit();
+    }
+  };
   
   const theme = useTheme();  
 
   return (
     <Container>
-      {authError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{authError}</Typography>}
-      {usageError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{usageError}</Typography>}
-      {generalError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{generalError}</Typography>}
-      <ChatContainer ref={chatContainerRef} sx={{ marginBlock: '1rem' }}>
+    {authError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{authError}</Typography>}
+    {usageError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{usageError}</Typography>}
+    {generalError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{generalError}</Typography>}
+    <ChatContainer>
+      <MessagesArea ref={messagesAreaRef}>
         <MessageList>
-            {messages.map((message, index) => (
-            <MessageItem key={index} owner={message.owner} >
-                <Typography dangerouslySetInnerHTML={{ __html: message.html || marked(message.text) }} />
-                {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
+          {messages.map((message, index) => (
+            <MessageItem key={index} owner={message.owner}>
+              <Typography dangerouslySetInnerHTML={{ __html: message.html || marked(message.text) }} />
+              {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
             </MessageItem>
-            ))}
+          ))}
         </MessageList>
-        <form onSubmit={handleSubmit}>
-            <InputArea>
-            <StyledTextarea
-              minRows={1}
-              style={{ 
-                flex: 1, // Take remaining space
-                minHeight: '20px', // Set a minimum height
-              }}
-              placeholder="Type a message..."
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-            />
-                <Button type="submit" 
-                variant="contained" 
-                color="primary" 
-                style={{
-                  maxHeight: '100px', // Adjust this based on your TextareaAutosize height
-                  marginLeft: '8px', // Optional: adds some space between text area and button
-                }}
-                >Send</Button>
-            </InputArea>
-        </form>
-      </ChatContainer>
+        <div ref={messagesEndRef} />
+      </MessagesArea>
+      <form onSubmit={handleSubmit}>
+        <InputArea>
+          <StyledTextarea
+            minRows={1}
+            style={{ 
+              flex: 1,
+              minHeight: '20px',
+            }}
+            placeholder="Type a message..."
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <Button type="submit" 
+            variant="contained" 
+            color="primary" 
+            style={{
+              maxHeight: '100px',
+              marginLeft: '8px',
+            }}
+          >
+            Send
+          </Button>
+        </InputArea>
+      </form>
+    </ChatContainer>
       <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mt: 2, mb: '2rem' }}>
         <Button onClick={handleNewConversation} variant='contained' color='secondary' sx={{ minHeight: '20px'}}>Start New Conversation</Button>
         <FormControl variant="outlined" sx={{ m: 1, minWidth: 280, align: 'right' }}>
