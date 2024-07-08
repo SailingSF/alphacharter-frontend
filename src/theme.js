@@ -3,82 +3,74 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#F4511E', //deep orange 600
-      mainVariant: '#D84315', //deep orange 800
+      main: '#2196F3',
+      mainVariant: '#1976D2',
     },
     secondary: {
-      main: '#e31855',
+      main: '#FF4081',
+      mainVariant: '#17a63a',
     },
     background: {
-        default: '#616161',
-        surface: '#9E9E9E',
-        header: '#424242', //gray 800
-        dark: '#161516',
-        light: '#F5F5F5', // gray 100
-        medium: '#bdbdbd',
-        paper: '#F5F5F5',
+      default: '#E8EAF6',
+      surface: '#F5F7FF',
+      header: '#3F51B5',
+      dark: '#303F9F',
+      light: '#F5F7FF',
+      medium: '#C5CAE9',
+      paper: '#FFFFFF',
+      chat: '#1E1E1E',  // Dark background for chat interface
     },
     text: {
-        primary: '#f5f5f5', //white
-        header: '#FFA000', //amber 700
-        dark: '#161516',
-        light: '#F5F5F5', //grey 100
-        paper: '#9E9E9E',
-        white: '#f5f5f5',
+      primary: '#212121',
+      secondary: '#455A64',
+      header: '#FFFFFF',
+      dark: '#263238',
+      light: '#546E7A',
+      paper: '#424242',
+      white: '#FFFFFF',
     },
-
+    chat: {
+      user: '#2C2C2C',    // Dark gray for user messages
+      assistant: '#323232' // Slightly lighter gray for assistant messages
+    }
   },
   typography: {
-    fontFamily: '"Bookman", "URW Bookman L", "serif"',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontFamily: 'Libre Baskerville, serif',
-      fontWeight: 700
+      fontFamily: '"Poppins", sans-serif',
+      fontWeight: 700,
+      fontSize: '2.5rem',
     },
     h2: {
-      fontFamily: 'Libre Baskerville, serif',
-      fontWeight: 400
+      fontFamily: '"Poppins", sans-serif',
+      fontWeight: 600,
+      fontSize: '2rem',
     },
     h3: {
-      fontFamily: 'Libre Baskerville, serif',
-      fontWeight: 400
+      fontFamily: '"Poppins", sans-serif',
+      fontWeight: 500,
+      fontSize: '1.75rem',
     },
     h4: {
-      fontFamily: 'Libre Baskerville, serif',
-      fontWeight: 400
+      fontFamily: '"Poppins", sans-serif',
+      fontWeight: 500,
+      fontSize: '1.5rem',
     },
     h5: {
-      fontFamily: 'Libre Baskerville, serif',
-      fontWeight: 400
+      fontFamily: '"Poppins", sans-serif',
+      fontWeight: 400,
+      fontSize: '1.25rem',
     },
     button: {
-      fontFamily: 'Libre Baskerville, serif',
-      fontWeight: 400,
-      letterSpacing: 0.5
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 500,
+      letterSpacing: 0.5,
+      textTransform: 'none',
     }
   },
   shape: {
-    borderRadius: '10px'
+    borderRadius: 8
   },
-  components: {
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          color: '#161516',
-          borderRadius: 0,             // Removing rounded corners
-        }
-      }
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          // Reset or redefine styles specific to Card
-          color: '#F5F5F5',
-          borderRadius: '3px', // Different border radius for Card
-        }
-      }
-    }
-  }
-  // Add more theme customization here
 });
 
 export default theme;

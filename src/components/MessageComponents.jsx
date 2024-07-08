@@ -27,8 +27,8 @@ const MessageItem = styled(Box)(({ theme, owner }) => ({
     padding: '10px 20px',
     borderRadius: '20px',
     margin: '5px',
-    backgroundColor: owner === 'assistant' ? theme.palette.primary.mainVariant : theme.palette.primary.main,
-    color: owner === 'assistant' ? theme.palette.text.primary : '#ffffff',
+    backgroundColor: owner === 'assistant' ? theme.palette.chat.assistant : theme.palette.chat.user,
+    color: owner === 'assistant' ? theme.palette.text.white : theme.palette.text.white,
 
     '& img': {  // Add these rules for images
         maxWidth: '100%',

@@ -94,7 +94,7 @@ function DemoSection() {
             }} 
               onClick={() => setActiveChat(demoChats[key])}>
               <CardActionArea>
-                <Typography variant="h5" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)' }}>
+                <Typography variant="h5" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.2)' }}>
                   {demoChats[key].title}
                 </Typography>
               </CardActionArea>
@@ -102,7 +102,7 @@ function DemoSection() {
           ))}
           </Box>
         </Grid>
-        <Grid item xs={12} md={8} sx={{ backgroundColor: theme.palette.background.dark, display: 'flex', flexDirection: 'column'}}>
+        <Grid item xs={12} md={8} sx={{ backgroundColor: theme.palette.background.chat, display: 'flex', flexDirection: 'column'}}>
           <MessageList height={'600px'}>
             {activeChat.messages.map((message, index) => (
               <MessageItem key={index} owner={message.owner}>

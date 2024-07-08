@@ -15,7 +15,7 @@ const ChatContainer = styled('div')(({ theme }) => ({
   height: '80vh',
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: '#060606',
+  backgroundColor: theme.palette.background.chat,
   padding: theme.spacing(2),
   overflow: 'hidden', // Hide overflow on the container
 }));

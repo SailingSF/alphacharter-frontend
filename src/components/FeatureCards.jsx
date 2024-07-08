@@ -36,7 +36,7 @@ function FeatureCards() {
                     height: '100%',
                 }} elevation={3}>
                     <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.5)' }}>
+                    <Typography gutterBottom variant="h5" component="h2" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.2)' }}>
                         {feature.title}
                     </Typography>
                     <Typography variant="body2">

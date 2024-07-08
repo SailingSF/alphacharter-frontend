@@ -29,7 +29,7 @@ function CallToAction({ text, href }) {
                     <svg width="100%" height="200px" viewBox="0 0 250 100">
                         <path
                             d={svgPath}
-                            stroke={theme.palette.primary.main}
+                            stroke={theme.palette.secondary.mainVariant}
                             transform="scale(2.5,-1) translate(0,-100)"
                             strokeWidth="0.5"
                             fill="none"

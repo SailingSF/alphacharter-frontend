@@ -43,7 +43,7 @@ function TestimonialsSection() {
             <SwiperSlide key={index} >
                 <Card sx={{ 
                     mb: 4, 
-                    boxShadow: '10px 20px 5px rgba(0,0,0,0.5)', 
+                    boxShadow: '10px 20px 5px rgba(0,0,0,0.4)', 
                     minHeight: '250px', 
                     maxWidth: '600px',
                     mx: 'auto',
