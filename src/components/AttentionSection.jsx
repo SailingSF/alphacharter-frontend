@@ -9,7 +9,7 @@ function AttentionSection({title, text }) {
     <Box sx={{
       p: 3,
       backgroundColor: theme.palette.background.surface,
-      color: theme.palette.warning.contrastText,
+      color: theme.palette.text.dark,
       display: 'flex',
       alignItems: 'center',
       mb: 2,
