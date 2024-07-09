@@ -12,7 +12,7 @@ const MessageList = styled(Box)(({ theme }) => ({
         width: '10px',
     },
     '&::-webkit-scrollbar-track': {
-        backgroundColor: theme.palette.grey[900],
+        backgroundColor: theme.palette.chat.scroll,
     },
     '&::-webkit-scrollbar-thumb': {
         backgroundColor: 'black',
