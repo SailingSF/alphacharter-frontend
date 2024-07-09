@@ -30,8 +30,9 @@ const theme = createTheme({
       white: '#FFFFFF',
     },
     chat: {
-      user: '#2C2C2C',    // Dark gray for user messages
-      assistant: '#323232' // Slightly lighter gray for assistant messages
+      user: '#47507f',    // east bay
+      assistant: '#303752', // martinique
+      scroll: '#263238',
     }
   },
   typography: {
