@@ -22,6 +22,9 @@ const Sidebar = () => {
           <ListItemButton component="a" href="#faq">
             <ListItemText primary="FAQ" />
           </ListItemButton>
+          <ListItemButton component="a" href="./team">
+            <ListItemText primary="Team" />
+          </ListItemButton>
         </List>
       </Box>
     );
