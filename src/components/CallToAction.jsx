@@ -37,7 +37,7 @@ function CallToAction({ text, href }) {
                         />
                     </svg>
                 </Box>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" style={{ color: theme.palette.text.white }} gutterBottom>
                     Sign up to get your virtual quant
                 </Typography>
                 <Button variant="contained" color="primary" onClick={handleButtonClick}>
