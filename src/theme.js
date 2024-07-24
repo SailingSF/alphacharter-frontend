@@ -3,20 +3,20 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#6096BA",
-      mainVariant: "#1976D2",
+      main: "#4C82A9", // steel blue
+      mainVariant: "#C7D9E6", // colombia blue
     },
     secondary: {
-      main: "#A167A5",
-      mainVariant: "#17a63a",
+      main: "#A167A5", // pomp and power
+      mainVariant: "#BB7E8C",  // puce
     },
     background: {
-      default: "#F5F3F5",
+      default: "#F5F3F5", // white smoke
       surface: "#F5F7FF",
-      header: "#A167A5",
-      dark: "#303F9F",
+      header: "#190933", // russian violet
+      dark: "#190933", // russian violet
       light: "#F5F7FF",
-      medium: "#C5CAE9",
+      medium: "#C7D9E6", // colombia blue
       paper: "#FFFFFF",
       chat: "#1E1E1E", // Dark background for chat interface
     },
