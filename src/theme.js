@@ -36,29 +36,29 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontFamily: '"Poppins", sans-serif',
+      fontFamily: '"Montserrat", sans-serif',
       fontWeight: 700,
       fontSize: "2.5rem",
     },
     h2: {
-      fontFamily: '"Poppins", sans-serif',
+      fontFamily: '"Montserrat", sans-serif',
       fontWeight: 600,
       fontSize: "2rem",
     },
     h3: {
-      fontFamily: '"Poppins", sans-serif',
+      fontFamily: '"Montserrat", sans-serif',
       fontWeight: 500,
       fontSize: "1.75rem",
     },
     h4: {
-      fontFamily: '"Poppins", sans-serif',
+      fontFamily: '"Montserrat", sans-serif',
       fontWeight: 500,
       fontSize: "1.5rem",
     },
     h5: {
-      fontFamily: '"Poppins", sans-serif',
+      fontFamily: '"Montserrat", sans-serif',
       fontWeight: 400,
       fontSize: "1.25rem",
     },
