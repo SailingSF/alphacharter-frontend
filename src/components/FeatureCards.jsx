@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Container, Box, Grid, Card, CardContent, Typography, Icon } from '@mui/material';
+import { Container, Box, Grid, Card, CardContent, Typography } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SearchIcon from '@mui/icons-material/Search';

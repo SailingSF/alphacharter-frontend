@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, Box, Drawer, IconButton } from '@mui/material';
+import { Container, Box, Drawer, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from './AboutSection/AboutSideBar';
 import IntroductionSection from './AboutSection/IntroductionSection';
