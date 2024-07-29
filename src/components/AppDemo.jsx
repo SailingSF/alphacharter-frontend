@@ -63,58 +63,65 @@ function DemoSection() {
     const [activeChat, setActiveChat] = useState(demoChats.automotive);
   
     return (
-        <Container maxWidth='xl'>
-        <Typography variant='h4' align='center' gutterBottom>
-            How to Use The AlphaCharter <strong>AlphaAI</strong> Assistant
-        </Typography>
-      <Grid container spacing={0}>
-        <Grid item xs={12} md={4}>
-          <Box sx={{
-            padding: '20px',
-            backgroundColor: theme.palette.background.medium,
-            borderRadius: '10px 0 0 10px', // rounded corners on the left
-            display: 'flex',
-            flexDirection: 'column',
-            height: '100%', // this will be controlled by the flex parent
-            border: '1px solid white',
-            borderRight: 0,
-          }}>
-          {Object.keys(demoChats).map((key) => (
-            <Card key={key} style={{ 
-              padding: '20px', 
-              backgroundColor: theme.palette.background.surface, 
-              marginBottom: '20px', 
-              boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.8)',
-              '&:hover': {
-                backgroundColor: theme.palette.action.hover, // Change background color on hover
-                boxShadow: '0px 10px 10px rgba(0, 0, 0, 0.9)', // Increase shadow on hover
-                cursor: 'pointer' // Change cursor to indicate clickable
-              }
-             
-            }} 
-              onClick={() => setActiveChat(demoChats[key])}>
-              <CardActionArea>
-                <Typography variant="h5" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.2)' }}>
-                  {demoChats[key].title}
-                </Typography>
-              </CardActionArea>
-            </Card>
-          ))}
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={8} sx={{ backgroundColor: theme.palette.background.chat, display: 'flex', flexDirection: 'column'}}>
-          <MessageList height={'600px'}>
-            {activeChat.messages.map((message, index) => (
-              <MessageItem key={index} owner={message.owner}>
-                <Typography variant='body1' dangerouslySetInnerHTML={{ __html: message.text }} />
-                {message.imageUrl && <img src={message.imageUrl} alt="chart" />}
-              </MessageItem>
-            ))}
-          </MessageList>
-        </Grid>
-      </Grid>
+      <Container maxWidth='xl' sx={{ my: 8 }}>
+          <Typography variant='h2' component="h2" align='center' gutterBottom sx={{ mb: 6 }}>
+              Examples
+          </Typography>
+          <Typography variant='h5' align='center' gutterBottom sx={{ mb: 4 }}>
+              Take a look at our examples to see what AlphaAI can do for you.
+          </Typography>
+          <Grid container spacing={4}>
+              <Grid item xs={12} md={4}>
+                  <Box sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 3,
+                  }}>
+                  {Object.keys(demoChats).map((key) => (
+                      <Card key={key} 
+                          onClick={() => setActiveChat(demoChats[key])}
+                          sx={{
+                              backgroundColor: theme.palette.background.paper,
+                              boxShadow: 'none',
+                              border: `1px solid ${theme.palette.divider}`,
+                              borderRadius: 2,
+                              transition: 'all 0.3s ease-in-out',
+                              '&:hover': {
+                                  backgroundColor: theme.palette.action.hover,
+                                  transform: 'translateY(-5px)',
+                                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                              }
+                          }}
+                      >
+                          <CardActionArea sx={{ p: 2 }}>
+                              <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold' }}>
+                                  {demoChats[key].title}
+                              </Typography>
+                          </CardActionArea>
+                      </Card>
+                  ))}
+                  </Box>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                  <Box sx={{ 
+                      backgroundColor: theme.palette.background.chat,
+                      borderRadius: 2,
+                      border: `1px solid ${theme.palette.divider}`,
+                      p: 3,
+                  }}>
+                      <MessageList height={'600px'}>
+                          {activeChat.messages.map((message, index) => (
+                              <MessageItem key={index} owner={message.owner}>
+                                  <Typography variant='body1' dangerouslySetInnerHTML={{ __html: message.text }} />
+                                  {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px', marginTop: '16px' }} />}
+                              </MessageItem>
+                          ))}
+                      </MessageList>
+                  </Box>
+              </Grid>
+          </Grid>
       </Container>
-    );
-  }
-  
+  );
+}
+
 export default DemoSection;

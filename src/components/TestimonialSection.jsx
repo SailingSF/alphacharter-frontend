@@ -47,7 +47,7 @@ function TestimonialsSection() {
                     minHeight: '250px', 
                     maxWidth: '600px',
                     mx: 'auto',
-                    backgroundColor: theme.palette.background.light, 
+                    backgroundColor: theme.palette.background.paper, 
                     border: `2px solid black`}}>
                 <CardContent sx={{
                     display: 'flex',
