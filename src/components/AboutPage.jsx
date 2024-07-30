@@ -19,13 +19,13 @@ const AboutPage = () => {
     const sidebarWidth = 240;
 
     return (
-        <Box sx={{ display: 'flex', minHeight: 'calc(100vh - 120px)' }}>
+        <Box sx={{ display: 'flex', width: '100%' }}>
             <Box
                 component="nav"
                 sx={{
                     width: { md: sidebarWidth },
                     flexShrink: { md: 0 },
-                    mt: { xs: '64px', md: 0 }, // Adjusting margin to accommodate header
+                    height: '100%',
                 }}
             >
                 {isMobile ? (
@@ -45,27 +45,21 @@ const AboutPage = () => {
                         <Sidebar />
                     </Drawer>
                 ) : (
-                    <Drawer
-                        variant="permanent"
+                    <Box
                         sx={{
-                            '& .MuiDrawer-paper': { 
-                                boxSizing: 'border-box', 
-                                width: sidebarWidth,
-                                backgroundColor: theme.palette.background.default,
-                                borderRight: 'none',
-                                top: '64px', // Adjusting position to respect header
-                                height: 'calc(100vh - 120px)', // Height to respect both header and footer
-                            },
+                            width: sidebarWidth,
+                            height: '100%',
+                            backgroundColor: theme.palette.background.default,
+                            borderRight: `1px solid ${theme.palette.divider}`,
+                            overflowY: 'auto',
                         }}
-                        open
                     >
                         <Sidebar />
-                    </Drawer>
+                    </Box>
                 )}
             </Box>
             
             <Box
-                component="main"
                 sx={{
                     flexGrow: 1,
                     p: 3,
@@ -73,8 +67,7 @@ const AboutPage = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    mt: { xs: '64px', md: 0 }, // Adjusting margin to accommodate header
-                    mb: { xs: '64px', md: 0 }, // Adjusting margin to accommodate footer
+                    overflowY: 'auto',
                 }}
             >
                 {isMobile && (
