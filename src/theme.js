@@ -40,12 +40,12 @@ const theme = createTheme({
     h1: {
       fontFamily: '"Montserrat", sans-serif',
       fontWeight: 700,
-      fontSize: "3rem",
+      fontSize: { xs: '2.5rem', md: '3rem' },
     },
     h2: {
       fontFamily: '"Montserrat", sans-serif',
       fontWeight: 600,
-      fontSize: "2.5rem",
+      fontSize: { xs: '2rem', md: '2.5rem' },
     },
     h3: {
       fontFamily: '"Montserrat", sans-serif',

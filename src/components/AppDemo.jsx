@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Card, CardActionArea, Container, Grid, Typography, Box } from '@mui/material';
+import { Card, CardActionArea, Container, Grid, Typography, Box, useMediaQuery } from '@mui/material';
 import { MessageItem, MessageList } from './MessageComponents';
 import autocomapny from '../images/autocompanies_2022.png';
 import chipcompanies from '../images/chipcompanies_ps_2022.png';
@@ -60,6 +60,7 @@ const demoChats = {
 
 function DemoSection() {
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
     const [activeChat, setActiveChat] = useState(demoChats.automotive);
   
     return (
@@ -70,7 +71,7 @@ function DemoSection() {
           <Typography variant='h5' align='center' gutterBottom sx={{ mb: 4 }}>
               Take a look at our examples to see what AlphaAI can do for you.
           </Typography>
-          <Grid container spacing={4}>
+          <Grid container spacing={2} direction={isMobile ? 'column' : 'row'}>
               <Grid item xs={12} md={4}>
                   <Box sx={{
                       display: 'flex',

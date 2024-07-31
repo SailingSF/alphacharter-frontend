@@ -1,12 +1,13 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Container, Box, Grid, Card, CardContent, Typography } from '@mui/material';
+import { Container, Box, Grid, Card, CardContent, Typography, useMediaQuery } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SearchIcon from '@mui/icons-material/Search';
 
 function FeatureCards() {
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
     
     const features = [
         { 
@@ -29,7 +30,7 @@ function FeatureCards() {
     return (
         <Container maxWidth='xl' sx={{ my: 8 }}>
             <Typography variant='h4' component="h2" sx={{ mb: 4, textAlign: 'center' }}>What We Offer</Typography>
-            <Grid container spacing={4}>
+            <Grid container spacing={4} direction={isMobile ? 'column' : 'row'}>
                 {features.map((feature, index) => (
                     <Grid item xs={12} md={4} key={index}>
                         <Card sx={{
