@@ -7,28 +7,38 @@ const MessageList = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     flexGrow: 1,
     padding: theme.spacing(1),
-    marginRight: '4px',
+    backgroundColor: theme.palette.background.chat,
     '&::-webkit-scrollbar': {
         width: '10px',
+        marginLeft: '4px'
     },
     '&::-webkit-scrollbar-track': {
         backgroundColor: theme.palette.chat.scroll,
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     },
     '&::-webkit-scrollbar-thumb': {
         backgroundColor: 'black',
         boxShadow: 'inset 0 0 0 1px white',
         borderRadius: '8px',
+        '&:hover': {
+        backgroundColor: theme.palette.secondary.main,
+        },
     }
   }));
 
 const MessageItem = styled(Box)(({ theme, owner }) => ({
     alignSelf: owner === 'assistant' ? 'flex-start' : 'flex-end',
     maxWidth: '70%',
-    padding: '10px 20px',
+    padding: theme.spacing(2),
     borderRadius: '20px',
-    margin: '5px',
+    margin: theme.spacing(1, 0),
     backgroundColor: owner === 'assistant' ? theme.palette.chat.assistant : theme.palette.chat.user,
     color: owner === 'assistant' ? theme.palette.text.white : theme.palette.text.white,
+    transition: 'box-shadow 0.3s ease-in-out',
+    '&:hover': {
+      boxShadow: theme.shadows[3],
+    },
 
     '& img': {  // Add these rules for images
         maxWidth: '100%',
@@ -38,15 +48,20 @@ const MessageItem = styled(Box)(({ theme, owner }) => ({
     },
 
     '& ul, & ol': {
-        listStyleType: 'none', // Removes bullet points or numbers
-        padding: 0, // Removes indentation
+        paddingLeft: theme.spacing(2),
+        marginBottom: 0,
+      },
+    '& li': {
+    marginBottom: theme.spacing(0.5),
     },
-
-    '& ul > li > img, & ol > li > img': {
-        listStyleType: 'none',
-        padding: 0,
-        margin: 0
-    }
+    '& p': {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    '&:last-child': {
+        marginBottom: 0,
+        marginTop: 0,
+    },
+    },
 }));
 
 export { MessageList, MessageItem };

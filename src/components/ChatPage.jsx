@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Box, TextareaAutosize, Button, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { 
+  Container, Box, TextareaAutosize, Button, Typography, 
+  MenuItem, Select, FormControl, InputLabel, Paper, 
+  IconButton, Tooltip, Snackbar, Alert
+} from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import AddIcon from '@mui/icons-material/Add';
+import HistoryIcon from '@mui/icons-material/History';
 import { MessageItem, MessageList } from './MessageComponents';
 import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
@@ -13,48 +20,49 @@ marked.setOptions({
   breaks: true, // Converts single line breaks to <br>
 });
 // Styled components
-const ChatContainer = styled('div')(({ theme }) => ({
-  height: '80vh',
+const ChatContainer = styled(Paper)(({ theme }) => ({
+  height: 'calc(100vh - 100px)',
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: theme.palette.background.chat,
-  padding: theme.spacing(2),
-  overflow: 'hidden', // Hide overflow on the container
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: theme.shape.borderRadius,
+  overflow: 'hidden',
+  boxShadow: theme.shadows[3],
 }));
 
-const MessagesArea = styled('div')({
-  flexGrow: 1,
-  overflowY: 'auto', // Allow vertical scrolling
+const ChatHeader = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderBottom: `1px solid ${theme.palette.divider}`,
   display: 'flex',
-  flexDirection: 'column',
-});
+  justifyContent: 'space-between',
+  alignItems: 'center',
+}));
 
-const InputArea = styled('div')(({ theme }) => ({
+const MessagesArea = styled(Box)(({ theme }) => ({
+  flexGrow: 1,
+  overflowY: 'auto',
+  padding: theme.spacing(2),
+  backgroundColor: theme.palette.background.chat,
+}));
+
+const InputArea = styled(Box)(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'flex-end',
-  marginTop: 'auto',
-  padding: '10px 0',
-  gap: theme.spacing(1)
-  
+  alignItems: 'center',
+  padding: theme.spacing(2),
+  borderTop: `1px solid ${theme.palette.divider}`,
 }));
 
 const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
   width: '100%',
-  padding: '18.5px 14px',
+  padding: theme.spacing(1.5),
   fontSize: '1rem',
   fontFamily: theme.typography.fontFamily,
-  boxSizing: 'border-box',
-  borderRadius: 4,
-  border: '1px solid #ccc',
-  color: theme.palette.text.white,
-  backgroundColor: theme.palette.background.chat,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: theme.shape.borderRadius,
   resize: 'none',
-  overflowY: 'auto',
-  maxHeight: '100px',
-  transition: 'border-color 0.2s ease-in-out',
   '&:focus': {
+    outline: 'none',
     borderColor: theme.palette.primary.main,
-    outline: 'none'
   }
 }));
 
@@ -102,6 +110,8 @@ function Chat() {
   const [usageError, setUsageError] = useState('');
   const [generalError, setGeneralError] = useState('');
   const [threads, setThreads] = useState([]);
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' });
+
 
   useEffect(() => {
     const renderer = new marked.Renderer();
@@ -196,6 +206,17 @@ function Chat() {
     }
   };
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbar({ ...snackbar, open: false });
+  };
+
+  const showSnackbar = (message, severity = 'info') => {
+    setSnackbar({ open: true, message, severity });
+  };
+
 
   const handleSubmit = async (event) => {
     if (event && event.preventDefault) {
@@ -228,8 +249,10 @@ function Chat() {
         // Token refresh handled automatically by the interceptor
         // If 401, refresh has failed
         setAuthError("Your session has expired. Please log in again.");
+        showSnackbar('Your session has expired. Please log in again.', 'error');
       } else if (error.response) {
         setUsageError(error.response.data.error) // set error as API error if not invalid token error
+        showSnackbar(error.response.data.error, 'error');
       }
       console.error(error);
     }
@@ -295,66 +318,80 @@ function Chat() {
   const theme = useTheme();  
 
   return (
-    <Container>
+    <Container maxWidth="lg">
     {authError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{authError}</Typography>}
     {usageError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{usageError}</Typography>}
     {generalError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{generalError}</Typography>}
     <ChatContainer>
-      <MessagesArea ref={messagesAreaRef}>
-        <MessageList>
+    <ChatHeader>
+          <Typography variant="h6">AI Finance Assistant</Typography>
+          <Box>
+            <Tooltip title="New Conversation">
+              <IconButton onClick={handleNewConversation} color="primary">
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Previous Threads">
+              <FormControl variant="outlined" size="small" sx={{ minWidth: 120, ml: 1 }}>
+                <Select
+                  value={threadTimestamp}
+                  onChange={handleThreadChange}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
+                >
+                  <MenuItem value="">
+                    <em>Select Thread</em>
+                  </MenuItem>
+                  {threads.map((thread, index) => (
+                    <MenuItem key={index} value={thread}>
+                      {new Date(thread).toLocaleString()}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Tooltip>
+          </Box>
+        </ChatHeader>
+      <MessageList ref={messagesAreaRef}>
+
           {messages.map((message, index) => (
-            <MessageItem key={index} owner={message.owner}>
-              <Typography dangerouslySetInnerHTML={{ __html: message.html || marked(message.text) }} />
-              {message.imageUrl && <img src={message.imageUrl} alt="chart" style={{ maxWidth: '100%', marginTop: '10px', alignItems: 'center' }}/>}
+            <MessageItem key={index} owner={message.owner} elevation={1}>
+              <Typography component="div" dangerouslySetInnerHTML={{ __html: message.html || marked(message.text) }} />
+              {message.imageUrl && (
+                  <Box mt={2} display="flex" justifyContent="center">
+                    <img src={message.imageUrl} alt="chart" />
+                  </Box>
+                )}
             </MessageItem>
           ))}
-        </MessageList>
-        <div ref={messagesEndRef} />
-      </MessagesArea>
-      <form onSubmit={handleSubmit}>
-        <InputArea>
+
+      </MessageList>
+        <InputArea component="form" onSubmit={handleSubmit}>
           <StyledTextarea
             minRows={1}
-            style={{ 
-              flex: 1,
-              minHeight: '20px',
-            }}
+            maxRows={4}
             placeholder="Type a message..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSubmit(e)}
           />
-          <Button type="submit" 
-            variant="contained" 
-            color="primary" 
-            style={{
-              maxHeight: '100px',
-              marginLeft: '8px',
-            }}
-          >
-            Send
-          </Button>
+          <Tooltip title="Send Message">
+            <IconButton type="submit" color="primary" sx={{ ml: 1 }}>
+              <SendIcon />
+            </IconButton>
+          </Tooltip>
         </InputArea>
-      </form>
     </ChatContainer>
-      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mt: 2, mb: '2rem' }}>
-        <Button onClick={handleNewConversation} variant='contained' color='secondary' sx={{ minHeight: '20px'}}>Start New Conversation</Button>
-        <FormControl variant="outlined" sx={{ m: 1, minWidth: 280, align: 'right' }}>
-          <InputLabel id="thread-select-label">Previous Threads</InputLabel>
-          <Select
-            labelId="thread-select-label"
-            id="thread-select"
-            value={threadTimestamp}
-            onChange={handleThreadChange}
-            label="Previous Threads"
-            inputProps={{ 'aria-label': 'Without label' }}
-          >
-            {threads.map((thread, index) => (
-              <MenuItem key={index} value={thread}>{new Date(thread).toLocaleString()}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
+    <Snackbar 
+        open={snackbar.open} 
+        autoHideDuration={6000} 
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
