@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Container, Box, TextareaAutosize, Button, Typography, 
-  MenuItem, Select, FormControl, InputLabel, Paper, 
+  Container, Box, TextareaAutosize, Typography, 
+  MenuItem, Select, FormControl, Paper, 
   IconButton, Tooltip, Snackbar, Alert
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import AddIcon from '@mui/icons-material/Add';
-import HistoryIcon from '@mui/icons-material/History';
 import { MessageItem, MessageList } from './MessageComponents';
 import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
@@ -36,13 +35,6 @@ const ChatHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-}));
-
-const MessagesArea = styled(Box)(({ theme }) => ({
-  flexGrow: 1,
-  overflowY: 'auto',
-  padding: theme.spacing(2),
-  backgroundColor: theme.palette.background.chat,
 }));
 
 const InputArea = styled(Box)(({ theme }) => ({
@@ -156,7 +148,6 @@ function Chat() {
     fetchThreads();
   }, [accessToken]);
 
-  const messagesEndRef = useRef(null);
   const messagesAreaRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -308,13 +299,6 @@ function Chat() {
     setMessages([]);
   };
   
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      handleSubmit();
-    }
-  };
-  
   const theme = useTheme();  
 
   return (
@@ -324,7 +308,7 @@ function Chat() {
     {generalError && <Typography variant="h5" color="error" style={{backgroundColor: theme.palette.background.surface, textAlign: 'center'}}>{generalError}</Typography>}
     <ChatContainer>
     <ChatHeader>
-          <Typography variant="h6">AI Finance Assistant</Typography>
+          <Typography variant="h6">AlphaAI Chat</Typography>
           <Box>
             <Tooltip title="New Conversation">
               <IconButton onClick={handleNewConversation} color="primary">
@@ -340,7 +324,7 @@ function Chat() {
                   inputProps={{ 'aria-label': 'Without label' }}
                 >
                   <MenuItem value="">
-                    <em>Select Thread</em>
+                    <em>Prev. Threads</em>
                   </MenuItem>
                   {threads.map((thread, index) => (
                     <MenuItem key={index} value={thread}>
