@@ -5,7 +5,9 @@ import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
 import { styled } from '@mui/system';
 import { marked } from 'marked';
-import DOMPurify from 'dompurify'; 
+import DOMPurify from 'dompurify';
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 
 marked.setOptions({
   breaks: true, // Converts single line breaks to <br>
@@ -63,6 +65,33 @@ const axiosInstance = axios.create({
   }
 });
 
+// Interceptor for token refresh
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        const refreshToken = localStorage.getItem('refreshToken');
+        const response = await axios.post('/api/token/refresh/', { refresh: refreshToken });
+        const { access } = response.data;
+        localStorage.setItem('accessToken', access);
+        axiosInstance.defaults.headers['Authorization'] = `Bearer ${access}`;
+        originalRequest.headers['Authorization'] = `Bearer ${access}`;
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        // Handle refresh token failure (e.g., logout user)
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        // Redirect to login page or show login modal
+        return Promise.reject(refreshError);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 function Chat() {
   const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
   const [prompt, setPrompt] = useState('');
@@ -73,6 +102,34 @@ function Chat() {
   const [usageError, setUsageError] = useState('');
   const [generalError, setGeneralError] = useState('');
   const [threads, setThreads] = useState([]);
+
+  useEffect(() => {
+    const renderer = new marked.Renderer();
+    renderer.paragraph = (text) => {
+      const regex = /\$\$(.*?)\$\$|\$(.*?)\$/g;
+      const parts = [];
+      let lastIndex = 0;
+      let match;
+
+      while ((match = regex.exec(text)) !== null) {
+        if (lastIndex !== match.index) {
+          parts.push(text.slice(lastIndex, match.index));
+        }
+        const latex = match[1] || match[2];
+        const html = katex.renderToString(latex, { displayMode: !!match[1] });
+        parts.push(html);
+        lastIndex = regex.lastIndex;
+      }
+
+      if (lastIndex !== text.length) {
+        parts.push(text.slice(lastIndex));
+      }
+
+      return `<p>${parts.join('')}</p>`;
+    };
+
+    marked.setOptions({ renderer });
+  }, []);
 
 
    const fetchThreads = async () => {
@@ -167,10 +224,11 @@ function Chat() {
       setAuthError(''); // clear errors
       setUsageError('');
     } catch (error) {
-      if (error.response && error.response.data.code === "token_not_valid") { 
-        setAuthError("You are not logged in or your session has expired, please log in."); // send error if not logged in
-      }
-      if (error.response) {
+      if (error.response && error.response.status === 401) {
+        // Token refresh handled automatically by the interceptor
+        // If 401, refresh has failed
+        setAuthError("Your session has expired. Please log in again.");
+      } else if (error.response) {
         setUsageError(error.response.data.error) // set error as API error if not invalid token error
       }
       console.error(error);

@@ -21,6 +21,7 @@ function LoginPage() {
       });
       console.log(response.data);
       localStorage.setItem('accessToken', response.data.access);
+      localStorage.setItem('refreshToken', response.data.refresh)
       setSuccessMessage('Login successful!'); // Add this line
       setError(''); // Clear any previous errors
       // Handle successful login (e.g., redirect to dashboard)
