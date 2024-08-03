@@ -60,43 +60,43 @@ function ChartMakerApp() {
       };
     
       const checkJobStatus = useCallback(async (jobId) => {
-    
         for (let i = 0; i < MAX_RETRIES; i++) {
           try {
             const response = await axiosInstance.get(`api/get_job_status/?job_id=${jobId}`);
             const { status, result } = response.data;
-    
+      
             if (status === 'complete') {
-              if (Array.isArray(result.response) && result.response.length > 0) {
-                const formattedResults = result.response.map(item => ({
-                  imageUrl: item.image_url,
-                  analysis: item.text,
-                }));
+              if (Array.isArray(result) && result.length > 0 && result[0].response) {
+                const formattedResults = [{
+                  imageUrl: result[0].response.image_url,
+                  analysis: result[0].response.text
+                }];
                 setResults(formattedResults);
+                setIsLoading(false);
+                return;
               } else {
                 setError('Unexpected result format. Please check the console for details.');
                 console.error('Unexpected result format:', result);
               }
-              setIsLoading(false);
-              return;
             } else if (status === 'FAILED') {
               setError('Job processing failed. Please try again.');
-              setIsLoading(false);
-              return;
             } else if (status !== 'PENDING') {
               setError(`Unexpected job status: ${status}. Please try again.`);
-              setIsLoading(false);
-              return;
+            } else {
+              // If status is still 'PENDING', wait before retrying
+              await new Promise(resolve => setTimeout(resolve, RETRY_INTERVAL));
+              continue;
             }
-    
-            // If status is still 'PENDING', wait before retrying
-            await new Promise(resolve => setTimeout(resolve, RETRY_INTERVAL));
+      
+            setIsLoading(false);
+            return;
+      
           } catch (err) {
             console.error('Error checking job status:', err);
             // Continue retrying even if there's an error
           }
         }
-    
+      
         // If we've exhausted all retries
         setError('Job is taking longer than expected. Please try again later.');
         setIsLoading(false);
@@ -159,12 +159,30 @@ function ChartMakerApp() {
             {results.map((result, index) => (
               <Card key={index} style={{ marginTop: '20px' }}>
                 <CardContent>
-                  <img src={result.imageUrl} alt={`Financial Chart ${index + 1}`} style={{ width: '100%' }} />
-                  <Typography variant="body1">{result.analysis}</Typography>
+                  <img 
+                    src={result.imageUrl} 
+                    alt={`Financial Chart ${index + 1}`} 
+                    style={{ 
+                      width: '100%', 
+                      maxHeight: '500px', // Adjust this value as needed
+                      objectFit: 'contain'
+                    }} 
+                  />
+                  <Typography 
+                    variant="body1" 
+                    style={{ 
+                      marginTop: '20px', 
+                      fontSize: '1.1rem', 
+                      lineHeight: '1.5',
+                      whiteSpace: 'pre-line'
+                    }}
+                  >
+                    {result.analysis}
+                  </Typography>
                 </CardContent>
               </Card>
             ))}
-    
+            
             {error && (
               <Card style={{ marginTop: '20px', backgroundColor: '#ffebee' }}>
                 <CardContent>
