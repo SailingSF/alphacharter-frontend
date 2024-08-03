@@ -32,6 +32,8 @@ function ChartMakerApp() {
         'Market cap comparison of FAANG stocks over time',
     ];
 
+    const instructions = "Instructions: Give a prompt of a chart you want to see to have AlphaCharter generate and return it with some analysis."
+
     useEffect(() => {
         axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
       }, [accessToken]);
@@ -115,49 +117,8 @@ function ChartMakerApp() {
             <Typography variant="h4" gutterBottom>
               AlphaAI Chart Generator
             </Typography>
-    
-            <Grid container spacing={3} style={{ marginBottom: '20px' }}>
-              {examplePrompts.map((example, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="body2">{example}</Typography>
-                      <Button 
-                        size="small" 
-                        color="primary" 
-                        onClick={() => setPrompt(example)}
-                      >
-                        Use This Prompt
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-    
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              variant="outlined"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              margin="normal"
-              placeholder="Edit your prompt here..."
-            />
-    
-            <Button 
-              variant="contained" 
-              color="primary" 
-              onClick={handleSubmit}
-              disabled={isLoading || !prompt}
-              startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
-            >
-              {isLoading ? 'Generating...' : 'Generate Chart'}
-            </Button>
-    
             {results.map((result, index) => (
-              <Card key={index} style={{ marginTop: '20px' }}>
+              <Card key={index} style={{ marginTop: '20px', marginBottom: '20px' }}>
                 <CardContent>
                   <img 
                     src={result.imageUrl} 
@@ -182,7 +143,48 @@ function ChartMakerApp() {
                 </CardContent>
               </Card>
             ))}
-            
+            <hr style={{ margin: '20px 0', border: 'none', borderBottom: '1px solid #ccc' }} />
+            <Typography variant='body1' gutterBottom>
+              {instructions}
+            </Typography>
+            <TextField
+              fullWidth
+              multiline
+              rows={3}
+              variant="outlined"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              margin="normal"
+              placeholder="Edit your prompt here..."
+            />
+    
+            <Button 
+              variant="contained" 
+              color="primary" 
+              onClick={handleSubmit}
+              disabled={isLoading || !prompt}
+              startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
+            >
+              {isLoading ? 'Generating...' : 'Generate Chart'}
+            </Button>
+            <Grid container spacing={3} style={{ marginBottom: '20px', marginTop: '10px' }}>
+              {examplePrompts.map((example, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Card>
+                    <CardContent>
+                      <Typography variant="body2">{example}</Typography>
+                      <Button 
+                        size="small" 
+                        color="primary" 
+                        onClick={() => setPrompt(example)}
+                      >
+                        Use This Prompt
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
             {error && (
               <Card style={{ marginTop: '20px', backgroundColor: '#ffebee' }}>
                 <CardContent>
