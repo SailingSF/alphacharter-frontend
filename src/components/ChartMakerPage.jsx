@@ -26,13 +26,13 @@ function ChartMakerApp() {
     const examplePrompts = [
         'Compare Tesla, NVIDIA, and IBM prices since 2018',
         'Price to sales ratio for all auto companies since 2020',
-        'Revenue growth of top 5 tech companies over the last decade',
-        'Debt to equity ratio of major banks from 2015 to 2023',
-        'Dividend yield of energy sector companies since 2010',
-        'Market cap comparison of FAANG stocks over time',
+        'Revenue of top 5 tech companies over the last 5 years',
+        'Debt to equity ratio of major banks like JP Morgan since 2015',
+        'Recent free cash flow from oil companies like Exxon',
+        'Market cap of FAANG stocks in the past 3 years',
     ];
 
-    const instructions = "Instructions: Give a prompt of a chart you want to see to have AlphaCharter generate and return it with some analysis."
+    const instructions = "Instructions: Give a prompt of a chart based on fundamental data you want generated. Use the examples below to build upon."
 
     useEffect(() => {
         axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
