@@ -39,13 +39,14 @@ function ChartMakerApp() {
       }, [accessToken]);
 
       const handleSubmit = async () => {
+        setThreadId(null);
         setIsLoading(true);
         setError('');
         setResults([]);
 
         const payload = {
           prompt: prompt,
-          ...(threadId && { thread_id: threadId }),
+          //...(threadId && { thread_id: threadId }),
         };
     
         try {
@@ -107,6 +108,13 @@ function ChartMakerApp() {
     const handleRetry = () => {
         setError('');
         handleSubmit();
+    };
+
+    const clearPreviousQuery = () => {
+      setPrompt('');
+      setResults([]);
+      setThreadId(null);
+      setError('');
     };
     
     const theme = useTheme();
@@ -176,7 +184,10 @@ function ChartMakerApp() {
                       <Button 
                         size="small" 
                         color="primary" 
-                        onClick={() => setPrompt(example)}
+                        onClick={() => {
+                          clearPreviousQuery();
+                          setPrompt(example);
+                        }}
                       >
                         Use This Prompt
                       </Button>
