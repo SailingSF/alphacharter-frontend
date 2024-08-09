@@ -12,17 +12,17 @@ function FeatureCards() {
     const features = [
         { 
             title: 'Create Advanced Charts', 
-            description: 'Leverage AI to make intricate charts using accurate data.',
+            description: 'Leverage AI to make charts for you, using the latest financial data so that you can have a visual reference of any concept you want to see. Look beyond price to compare valueation ratios for stocks in specific industries and understand their financials.',
             icon: <BarChartIcon fontSize="large" />
         },
         { 
-            title: 'Talk Finance with an AI Assistant', 
-            description: 'Chat with the most powerful AI models about how to research and evaluate stocks.',
+            title: 'Chat with an AI Quant', 
+            description: "Explore financial data with visualizations and data from public companies powered by the most powerful AI models. Learn how to research and evaluate stocks if you'e a beginner, source and visualize data in 1/10th of the time if you're a pro.",
             icon: <ChatIcon fontSize="large" />
         },
         { 
             title: 'Screen and Research Stocks', 
-            description: "Use AlphaCharter's tool to screen and visualize stocks with up-to-date data.",
+            description: "Use AlphaCharter's chat tool to screen and visualize stocks with up-to-date data so that you can make informed investing decisions without digging through financial reports or creating spreadsheets.",
             icon: <SearchIcon fontSize="large" />
         },
     ];
