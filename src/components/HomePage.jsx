@@ -1,7 +1,8 @@
 import React from "react";
 import HeroSection from "./Herosection";
 import FeatureCards from "./FeatureCards";
-import AppDemo from "./AppDemo";
+import ChartMakerDemo from "./ChartMakerDemo";
+import ChatAppDemo from "./ChatAppDemo";
 import CallToAction from "./CallToAction";
 import TestimonialsSection from "./TestimonialSection";
 
@@ -10,7 +11,8 @@ function HomePage() {
     <div>
       <HeroSection />
       <FeatureCards />
-      <AppDemo />
+      <ChartMakerDemo />
+      <ChatAppDemo />
       <CallToAction text="Make an account" href="/login" />
       <TestimonialsSection />
     </div>
