@@ -66,7 +66,7 @@ function DemoSection() {
     return (
       <Container maxWidth='xl' sx={{ my: 8 }}>
           <Typography variant='h2' component="h2" align='center' gutterBottom sx={{ mb: 6 }}>
-              Examples
+              Chat Examples
           </Typography>
           <Typography variant='h5' align='center' gutterBottom sx={{ mb: 4 }}>
               Take a look at our examples to see what AlphaAI can do for you.
