@@ -5,9 +5,6 @@ import { Refresh as RefreshIcon, Info as InfoIcon } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import { marked } from 'marked';
 
-marked.setOptions({
-  breaks: true, // Converts single line breaks to <br>
-});
 
 const axiosInstance = axios.create({
     baseURL: 'https://financeassistant-01-7c9325856268.herokuapp.com/',
