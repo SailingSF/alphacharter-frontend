@@ -3,6 +3,11 @@ import axios from 'axios';
 import { Container, Paper, TextField, Button, Typography, Card, CardContent, Grid, Snackbar, CircularProgress, IconButton, Tooltip } from '@mui/material';
 import { Refresh as RefreshIcon, Info as InfoIcon } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import { marked } from 'marked';
+
+marked.setOptions({
+  breaks: true, // Converts single line breaks to <br>
+});
 
 const axiosInstance = axios.create({
     baseURL: 'https://financeassistant-01-7c9325856268.herokuapp.com/',
@@ -32,7 +37,7 @@ function ChartMakerApp() {
         'Market cap of FAANG stocks in the past 3 years',
     ];
 
-    const instructions = "Instructions: Give a prompt of a chart based on fundamental data you want generated. Use the examples below to build upon."
+    const instructions = "Instructions: Tell me what financial chart you want generated. Use the examples below as ideas and feel free to switch up the stocks or metrics in the prompt."
 
     useEffect(() => {
         axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
@@ -56,7 +61,13 @@ function ChartMakerApp() {
     
           await checkJobStatus(job_id);
         } catch (err) {
-          setError('An error occurred while submitting the prompt. Please try again.');
+          if (err.response && err.response.status === 401) {
+            // Token refresh handled automatically by the interceptor
+            // If 401, refresh has failed
+            setError("Your session has expired. Please log in again.");
+          } else if (error.response) {
+            setError('An error occurred while submitting the prompt. Please try again.');
+          }
           console.error('API call error:', err);
           setIsLoading(false);
         }
@@ -95,6 +106,13 @@ function ChartMakerApp() {
             return;
       
           } catch (err) {
+            if (err.response && err.response.status === 401) {
+              // Token refresh handled automatically by the interceptor
+              // If 401, refresh has failed
+              setError("Your session has expired. Please log in again.");
+            } else if (error.response) {
+              setError(error.response.data.error) // set error as API error if not invalid token error
+            }
             console.error('Error checking job status:', err);
             // Continue retrying even if there's an error
           }
@@ -123,7 +141,7 @@ function ChartMakerApp() {
         <Container maxWidth="lg">
           <Paper elevation={3} style={{ padding: '20px', marginTop: '20px', backgroundColor: theme.palette.background.paper }}>
             <Typography variant="h4" gutterBottom>
-              AlphaAI Chart Generator
+              AlphaAI Chart Maker
             </Typography>
             {results.map((result, index) => (
               <Card key={index} style={{ marginTop: '20px', marginBottom: '20px' }}>
@@ -145,9 +163,8 @@ function ChartMakerApp() {
                       lineHeight: '1.5',
                       whiteSpace: 'pre-line'
                     }}
-                  >
-                    {result.analysis}
-                  </Typography>
+                    dangerouslySetInnerHTML={{ __html: marked(result.analysis) }}
+                  />
                 </CardContent>
               </Card>
             ))}
