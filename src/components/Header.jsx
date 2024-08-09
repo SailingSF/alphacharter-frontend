@@ -1,28 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { trackEvent } from '../analytics';
+import UserMenu from './UserMenu';
 
 function Header() {
     const theme = useTheme();
+    const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     const handleLoginClick = () => {
         trackEvent('Button', 'Click', 'Header Login Button Click');
-        // Navigate to the href
-        window.location.href = '/login';
+        navigate('/login');
     };
 
     const handleAlphaaiClick = () => {
         trackEvent('Button', 'Click', 'Header AlphaAI Button Click');
-        // Navigate to the href
-        window.location.href = '/chat';
+        navigate('/chat');
     };
 
     const handleAboutClick = () => {
         trackEvent('Button', 'Click', 'Header About Button Click');
-        // Navigate to the href
-        window.location.href = '/about';
+        navigate('/about');
     };
 
     const chatButtonStyle = {
@@ -48,8 +55,11 @@ function Header() {
                 </Typography>
                 <Button onClick={handleAboutClick} color="inherit">About</Button>
                 <Button onClick={handleAlphaaiClick} sx={chatButtonStyle}>AlphaAI</Button>
-                {/* <Button component={Link} to="/about" color="inherit">About</Button> */}
-                <Button onClick={handleLoginClick} color="inherit">Login</Button>
+                {user ? (
+                    <UserMenu firstName={user.first_name} />
+                ) : (
+                    <Button onClick={handleLoginClick} color="inherit">Login</Button>
+                )}
             </Toolbar>
         </AppBar>
     );

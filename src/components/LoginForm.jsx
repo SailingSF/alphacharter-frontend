@@ -15,13 +15,18 @@ function LoginPage() {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://financeassistant-01-7c9325856268.herokuapp.com/api/token/', {
+      const response = await axios.post('https://financeassistant-01-7c9325856268.herokuapp.com/api/login/', {
         username,
         password
       });
       console.log(response.data);
       localStorage.setItem('accessToken', response.data.access);
-      localStorage.setItem('refreshToken', response.data.refresh)
+      localStorage.setItem('refreshToken', response.data.refresh);
+      localStorage.setItem('token', response.data.access);
+      localStorage.setItem('user', JSON.stringify({
+          first_name: response.data.first_name,
+          email: response.data.email
+      }));
       setSuccessMessage('Login successful!'); // Add this line
       setError(''); // Clear any previous errors
       // Handle successful login (e.g., redirect to dashboard)
