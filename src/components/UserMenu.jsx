@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-function UserMenu({ firstName }) {
+function UserMenu({ firstName, onLogout }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
 
@@ -16,11 +16,8 @@ function UserMenu({ firstName }) {
   };
 
   const handleLogout = () => {
-    // Clear user data from localStorage
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    // Redirect to home page
-    navigate('/');
+    onLogout();
+    handleClose();
   };
 
   return (

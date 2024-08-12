@@ -22,15 +22,14 @@ function LoginPage() {
       console.log(response.data);
       localStorage.setItem('accessToken', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
-      localStorage.setItem('token', response.data.access);
       localStorage.setItem('user', JSON.stringify({
         first_name: response.data.first_name,
         email: response.data.email
       }));
       setSuccessMessage('Login successful!'); // Add this line
       setError(''); // Clear any previous errors
-      // Handle successful login (e.g., redirect to dashboard)
-      navigate('/chat')
+      // Handle successful login, redirect home
+      navigate('/')
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
       setSuccessMessage(''); // Clear any previous success message

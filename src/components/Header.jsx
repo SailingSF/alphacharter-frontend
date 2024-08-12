@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { trackEvent } from '../analytics';
 import UserMenu from './UserMenu';
@@ -9,14 +9,17 @@ import FeatureMenu from './FeatureMenu';
 function Header() {
     const theme = useTheme();
     const navigate = useNavigate();
+    const location = useLocation();
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
+        } else {
+            setUser(null);
         }
-    }, []);
+    }, [location]);
 
     const handleLoginClick = () => {
         trackEvent('Button', 'Click', 'Header Login Button Click');
@@ -28,6 +31,13 @@ function Header() {
         navigate('/about');
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('accessToken');
+        setUser(null);
+        navigate('/');
+    };
+
     return (
         <AppBar position='static' sx={{ top: 0}}>
             <Toolbar style={{backgroundColor: theme.palette.background.header, color: theme.palette.text.header}}>
@@ -37,7 +47,7 @@ function Header() {
                 <Button onClick={handleAboutClick} color="inherit">About</Button>
                 <FeatureMenu />
                 {user ? (
-                    <UserMenu firstName={user.first_name} />
+                    <UserMenu firstName={user.first_name} onLogout={handleLogout} />
                 ) : (
                     <Button onClick={handleLoginClick} color="inherit">Login</Button>
                 )}
