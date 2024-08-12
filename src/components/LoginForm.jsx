@@ -24,8 +24,8 @@ function LoginPage() {
       localStorage.setItem('refreshToken', response.data.refresh);
       localStorage.setItem('token', response.data.access);
       localStorage.setItem('user', JSON.stringify({
-          first_name: response.data.first_name,
-          email: response.data.email
+        first_name: response.data.first_name,
+        email: response.data.email
       }));
       setSuccessMessage('Login successful!'); // Add this line
       setError(''); // Clear any previous errors
@@ -39,12 +39,15 @@ function LoginPage() {
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     console.log('Access key removed');
+  };
 
-    // Optionally remove the refresh token as well
-};
+  const handleLostPassword = () => {
+    navigate('/lostpassword')
+  }
 
-const warningComponent = { title: "Attention:", text: "Create an account first to gain access to all AlphaCharter features."}
+  const warningComponent = { title: "Attention:", text: "Create an account first to gain access to all AlphaCharter features." }
 
   return (
     <Container maxWidth="sm" sx={{ marginBottom: '4rem' }}>
@@ -79,11 +82,15 @@ const warningComponent = { title: "Attention:", text: "Create an account first t
         {error && <Typography color="error">{error}</Typography>}
         {successMessage && <Typography color="primary">{successMessage}</Typography>}
       </form>
-      <Button onClick={handleLogout} variant='contained' color='secondary' fullWidth sx={{mt: 1}}>Log Out</Button>
+      <Button onClick={handleLogout} variant='contained' color='secondary' fullWidth sx={{ mt: 1 }}>Log Out</Button>
       <Typography variant='h5' component='h4' gutterBottom>
-       <br></br>Don't have an account?
+        <br></br>Don't have an account?
       </Typography>
       <Button variant='contained' color='primary' href='/signup' fullWidth>Sign Up</Button>
+      <Typography variant='h5' component='h4' gutterBottom>
+        <br></br>Forgot your password?
+      </Typography>
+      <Button onClick={handleLostPassword} variant='contained' color='secondary' fullWidth sx={{ mt: 1 }}>Lost Password</Button>
     </Container>
   );
 }

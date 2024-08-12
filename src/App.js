@@ -12,6 +12,8 @@ import Layout from './components/Layout';
 import TeamPage from './components/TeamPage';
 import AboutPage from './components/AboutPage';
 import ChartMakerApp from './components/ChartMakerPage';
+import LostPasswordRequest from './components/LostPasswordRequest';
+import LostPasswordConfirm from './components/LostPasswordConfirm';
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
           <Route path="/team" element={<TeamPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/chartmaker" element={<ChartMakerApp />} />
+          <Route path='/lostpassword' element={<LostPasswordRequest />} />
+          <Route path='/reset-password/:uidb64/:token' element={<LostPasswordConfirm />} />
         </Routes>
         </Layout>
       </Router>
