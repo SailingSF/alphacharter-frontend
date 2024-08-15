@@ -26,12 +26,12 @@ function ChartMakerApp() {
 
 
     const examplePrompts = [
-        'Compare Tesla, NVIDIA, and IBM prices since 2018',
+        'Compare Tesla, NVIDIA, and IBM stock performance since 2018',
         'Price to sales ratio for all auto companies since 2020',
         'Revenue of top 5 tech companies over the last 5 years',
         'Debt to equity ratio of major banks like JP Morgan since 2015',
         'Recent free cash flow from oil companies like Exxon',
-        'Market cap of FAANG stocks in the past 3 years',
+        ' What is the market cap of FAANG stocks for the past 3 years',
     ];
 
     const instructions = "Instructions: Tell me what financial chart you want generated. Use the examples below as ideas and feel free to switch up the stocks or metrics in the prompt."
@@ -158,7 +158,7 @@ function ChartMakerApp() {
                       marginTop: '20px', 
                       fontSize: '1.1rem', 
                       lineHeight: '1.5',
-                      whiteSpace: 'pre-line'
+                      whiteSpace: 'normal'
                     }}
                     dangerouslySetInnerHTML={{ __html: marked(result.analysis) }}
                   />
