@@ -35,9 +35,12 @@ function HeroSection() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleLoginClick = () => {
-    trackEvent("Button", "Click", "Hero Login Button Click");
-    window.location.href = "/login";
+  const handleGetStartedClick = () => {
+    const isLoggedIn = localStorage.getItem('accessToken') !== null;
+    const destination = isLoggedIn ? "/chartmaker" : "/login";
+    
+    trackEvent("Button", "Click", `Hero Get Started Button Click - ${isLoggedIn ? 'Logged In' : 'Not Logged In'}`);
+    window.location.href = destination;
   };
 
   return (
@@ -64,7 +67,7 @@ function HeroSection() {
       <Typography variant={isMobile ? "body1" : "h5"} component="p" gutterBottom sx={{ margin: { xs: 2, sm: 5 } }}>
         Your on-demand quantitative researcher.
       </Typography>
-      <Button variant="contained" color="primary" onClick={handleLoginClick} sx={{ mt: 2 }}>
+      <Button variant="contained" color="primary" onClick={handleGetStartedClick} sx={{ mt: 2 }}>
         Get Started
       </Button>
     </HeroContainer>
