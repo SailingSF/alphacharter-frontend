@@ -25,6 +25,9 @@ const Sidebar = () => {
           <ListItemButton component="a" href="./team">
             <ListItemText primary="Team" />
           </ListItemButton>
+          <ListItemButton component="a" href="./how-to-use">
+            <ListItemText primary="How To Use Chart Maker" />
+          </ListItemButton>
         </List>
       </Box>
     );

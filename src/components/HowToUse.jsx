@@ -8,8 +8,7 @@ import {
   StepLabel, 
   StepContent,
   Button,
-  Paper,
-  useTheme
+  Paper
 } from '@mui/material';
 
 
@@ -35,8 +34,6 @@ const steps = [
 
 const HowToPage = () => {
   const [activeStep, setActiveStep] = React.useState(0);
-
-  const theme = useTheme();
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -98,7 +95,7 @@ const HowToPage = () => {
           </Stepper>
           {activeStep === steps.length && (
             <Paper square elevation={0} sx={{ p: 3 }}>
-              <Typography>All steps completed - you&apos;re finished</Typography>
+              <Typography>You just made a financial chart, now make another!</Typography>
               <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
                 Reset
               </Button>
