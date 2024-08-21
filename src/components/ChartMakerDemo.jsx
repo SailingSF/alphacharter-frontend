@@ -36,7 +36,7 @@ const examples = {
 
 function ChartMakerDemo() {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [activeExample, setActiveExample] = useState(examples.performance_comparison);
 
     return (
@@ -47,11 +47,11 @@ function ChartMakerDemo() {
           <Typography variant='h5' align='center' gutterBottom sx={{ mb: 4 }}>
               Have AI make charts with a simple prompt.
           </Typography>
-          <Grid container spacing={2} direction='column'>
-              <Grid item xs={12} md={4} direction={isMobile ? 'column' : 'row'}>
+          <Grid container spacing={2} direction={isMobile ? 'row' : 'column'}>
+              <Grid item xs={12} md={4}>
                   <Box sx={{
                       display: 'flex',
-                      flexDirection: 'row',
+                      flexDirection: isMobile ? 'column' : 'row',
                       gap: 3,
                   }}>
                   {Object.keys(examples).map((key) => (
@@ -68,7 +68,7 @@ function ChartMakerDemo() {
                                   transform: 'translateY(-5px)',
                                   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                               },
-                              margin: '0 auto', // Center the card horizontally
+                              margin: isMobile ? '10px 0' : '0 auto',
                           }}
                       >
                           <CardActionArea sx={{ p: 2 }}>
@@ -86,6 +86,7 @@ function ChartMakerDemo() {
                       borderRadius: 2,
                       border: `1px solid ${theme.palette.divider}`,
                       p: 3,
+                      width: isMobile ? '100%' : 'auto',
                   }}>
                         <Typography variant='h5'>
                           <strong>Prompt: </strong>{activeExample.prompt}<br/>
@@ -96,7 +97,7 @@ function ChartMakerDemo() {
                             alt={`Financial Chart ${activeExample.name}`} 
                             style={{ 
                             width: '100%', 
-                            maxHeight: '500px', // Adjust this value as needed
+                            maxHeight: isMobile ? '300px' : '500px',
                             objectFit: 'contain'
                             }} 
                         />
