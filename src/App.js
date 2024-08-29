@@ -16,6 +16,7 @@ import LostPasswordRequest from './components/LostPasswordRequest';
 import LostPasswordConfirm from './components/LostPasswordConfirm';
 import HowToPage from './components/HowToUse';
 import EditAccountPage from './components/EditAccount';
+import HTMLPaperComponent from './components/DemoBlog';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
           <Route path='/reset-password/:uidb64/:token' element={<LostPasswordConfirm />} />
           <Route path='/how-to-use' element={<HowToPage />} />
           <Route path='/edit-account' element={<EditAccountPage />} />
+          <Route path='/demo-agent' element={<HTMLPaperComponent />} />
         </Routes>
         </Layout>
       </Router>
