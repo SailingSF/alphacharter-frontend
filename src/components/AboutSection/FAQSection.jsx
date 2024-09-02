@@ -26,12 +26,12 @@ const FAQSection = () => {
           </li>
           <li>Can AlphaAI predict stock prices?
             <ul>
-              <li>Absolutely not, no on can. What AlphaAI can do is give you much better information about companies and stocks allowing you to make more educated decisions, AlphaCharter is designed to help you research and learn and works best when given those sorts of tasks.</li>
+              <li>Absolutely not, no one can. What AlphaAI can do is give you much better information about companies and stocks allowing you to make more educated decisions, AlphaCharter is designed to help you research and learn and works best when given those sorts of tasks.</li>
             </ul>
           </li>
           <li>How accurate is the data provided by AlphaCharter?
             <ul>
-              <li>Very accurate, the data has been both cleaned by a vendor and our own system. That doesn’t mean there are zero mistakes however. Should you find a mistake, the first thing you should do is ask AlphaAI about it. Often numbers can look odd but upon investigation they can still be accurate. For example spikes in data could be due to things like the Covid-19 pandemic, or accounting changes for quarterly data. If you still think there's a mistake please email <a href='mailto:support@alphacharter.xyz'>support@alphacharter.xyz</a>.</li>
+              <li>Very accurate, the data has been both cleaned by a vendor and our own system. That doesn't mean there are zero mistakes however. Should you find a mistake, the first thing you should do is ask AlphaAI a follow up question about it. Often numbers can look odd but upon investigation they can still be accurate. For example spikes in data could be due to things like the Covid-19 pandemic, or accounting changes for quarterly data. If you still think there's a mistake please email <a href='mailto:support@alphacharter.xyz'>support@alphacharter.xyz</a>.</li>
             </ul>
           </li>
         </ul>
